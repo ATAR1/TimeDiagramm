@@ -70,15 +70,20 @@ namespace TimeDiagrammGeneratorLibrary
         {
             if (interval.StartTime.TotalHours < startHour) return;
             if (interval.StartTime.TotalHours - stringCount > startHour) return;
-            interval.StartTime = interval.StartTime.Add(new TimeSpan(-1*startHour,0,0));
+            interval.StartTime = interval.StartTime.Add(new TimeSpan(-1 * startHour, 0, 0));
             var stringNum = interval.StartTime.Hours;
             var stringY = height - margin - (stringNum * stringHeight);
-            var lineY = stringY - diagramNum * stringHeight / (diagramCount+1);
+            var lineY = stringY - diagramNum * stringHeight / (diagramCount + 1);
             const double pixelsPerSecond = stringWeight / 3600.0;
-            var lineStart = pixelsPerSecond * (interval.StartTime.Minutes * 60+ interval.StartTime.Seconds) + margin;
-            var lineStop = pixelsPerSecond * (interval.StartTime.Minutes * 60 + interval.StartTime.Seconds + interval.Duration.TotalSeconds)+ margin;
-            var pen = new Pen(diagramColors[diagramNum-1], 5);
+            var lineStart = pixelsPerSecond * GetTotalSecondsAfterHour(interval.StartTime) + margin;
+            var lineStop = pixelsPerSecond * (GetTotalSecondsAfterHour(interval.StartTime) + interval.Duration.TotalSeconds) + margin;
+            var pen = new Pen(diagramColors[diagramNum - 1], 5);
             gr.DrawLine(pen, Convert.ToInt32(lineStart), lineY, Convert.ToInt32(lineStop), lineY);
+        }
+
+        private static int GetTotalSecondsAfterHour(TimeSpan startTime)
+        {
+            return startTime.Minutes * 60 + startTime.Seconds;
         }
 
         private static void DrawAxis(Graphics gr)
