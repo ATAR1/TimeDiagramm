@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeDiagrammWPF_View", "Tim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeDiagrammGeneratorLibrary", "TimeDiagrammGeneratorLibrary\TimeDiagrammGeneratorLibrary.csproj", "{6D750282-9484-4324-A22B-1C2461FC417A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2CBDF99-7A75-4229-9EB4-144517B39923}"
+	ProjectSection(SolutionItems) = preProject
+		DB\IntervalsDB.mdf = DB\IntervalsDB.mdf
+		DB\IntervalsDB_log.ldf = DB\IntervalsDB_log.ldf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
