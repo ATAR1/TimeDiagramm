@@ -16,7 +16,7 @@ namespace TimeDiagrammGeneratorLibrary
         private const int stringHeight = (height - 2* margin)/ stringCount;
         private const int stringWeight = width - 2 * margin;
         private const int inHourIntervalCount = 12;
-        private const int startHour = 20;
+        private const int startHour = 8;
         private const int fontSize = 10;
         
         static int diagramCount;
@@ -27,6 +27,7 @@ namespace TimeDiagrammGeneratorLibrary
             Color.Red,
             Color.Orange,
             Color.Green,
+            Color.Violet,
             Color.Yellow
         };
 
