@@ -16,23 +16,25 @@ namespace TimeDiagrammGeneratorLibrary
         private const int stringHeight = (height - 2* margin)/ stringCount;
         private const int stringWeight = width - 2 * margin;
         private const int inHourIntervalCount = 12;
-        private const int startHour = 8;
         private const int fontSize = 10;
         
+        private static DateTime startTime;
         static int diagramCount;
-        static Color backGroundColor = Color.FromArgb(240, 240, 240);
+        static Color backGroundColor = Color.FromArgb(245, 245, 245);
 
         private static Color[] diagramColors = new Color[]
         {
-            Color.Red,
-            Color.Orange,
             Color.Green,
+            Color.Orange,            
             Color.Violet,
+            Color.Red,
             Color.Yellow
         };
 
         public static Bitmap GenerateDiagramm(List<Interval[]> diagrams)
         {
+            startTime = new DateTime(2018,3,5,20,0,0); 
+
             Bitmap canva = new Bitmap(width, height);
             var gr = Graphics.FromImage(canva);
             gr.FillRectangle(new SolidBrush(backGroundColor), new Rectangle(0, 0, width, width));
@@ -44,7 +46,7 @@ namespace TimeDiagrammGeneratorLibrary
                 diagramNum++;
                 foreach (var interval in intervals)
                 {
-                    if (interval.StartTime.Hours != (interval.StartTime + interval.Duration).Hours)
+                    if (interval.StartTime.Hour != (interval.StartTime + interval.Duration).Hour)
                     {
                         Tuple<Interval, Interval> pair = SplitInterval(interval);
                         DrawInterval(gr, pair.Item1, diagramNum);
@@ -60,36 +62,48 @@ namespace TimeDiagrammGeneratorLibrary
 
         private static Tuple<Interval, Interval> SplitInterval(Interval sourceInterval)
         {
-            int nextHour = sourceInterval.StartTime.Hours + 1;
-            Interval firstInterval = new Interval() { StartTime = sourceInterval.StartTime, Duration = new TimeSpan(sourceInterval.StartTime.Days, nextHour, 0, 0).Add(TimeSpan.FromMilliseconds(-1)) - sourceInterval.StartTime };
-            Interval secondInterval = new Interval() { StartTime = new TimeSpan(sourceInterval.StartTime.Days,nextHour, 0, 0), Duration = sourceInterval.Duration - firstInterval.Duration };
+            DateTime nxtH = new DateTime(sourceInterval.StartTime.Year, sourceInterval.StartTime.Month, sourceInterval.StartTime.Day, sourceInterval.StartTime.Hour, 0, 0).Add(new TimeSpan(1, 0, 0));
+            Interval firstInterval = new Interval()
+            {
+                StartTime = sourceInterval.StartTime,
+                Duration = nxtH.Add(TimeSpan.FromMilliseconds(-1)) - sourceInterval.StartTime,
+                Level = sourceInterval.Level
+            };
+            Interval secondInterval = new Interval()
+            {
+                StartTime = nxtH,
+                Duration = sourceInterval.Duration - firstInterval.Duration,
+                Level = sourceInterval.Level
+            };
 
             return new Tuple<Interval, Interval>(firstInterval, secondInterval);
         }
 
         private static void DrawInterval(Graphics gr, Interval interval,int diagramNum)
         {
-            if (interval.StartTime.TotalHours < startHour) return;
-            if (interval.StartTime.TotalHours - stringCount > startHour) return;
-            interval.StartTime = interval.StartTime.Add(new TimeSpan(-1 * startHour, 0, 0));
-            var stringNum = interval.StartTime.Hours;
+            if (interval.StartTime < startTime) return;
+            if (interval.StartTime >= startTime.AddHours(stringCount)) return;
+            var stringNum = (int)(interval.StartTime-startTime).TotalHours;
             var stringY = height - margin - (stringNum * stringHeight);
             var lineY = stringY - diagramNum * stringHeight / (diagramCount + 1);
             const double pixelsPerSecond = stringWeight / 3600.0;
             var lineStart = pixelsPerSecond * GetTotalSecondsAfterHour(interval.StartTime) + margin;
             var lineStop = pixelsPerSecond * (GetTotalSecondsAfterHour(interval.StartTime) + interval.Duration.TotalSeconds) + margin;
             var pen = new Pen(diagramColors[diagramNum - 1], 5);
+            if(interval.Level==0) pen = new Pen(Color.Red, 5);
             gr.DrawLine(pen, Convert.ToInt32(lineStart), lineY, Convert.ToInt32(lineStop), lineY);
         }
 
-        private static int GetTotalSecondsAfterHour(TimeSpan startTime)
+        private static int GetTotalSecondsAfterHour(DateTime startTime)
         {
-            return startTime.Minutes * 60 + startTime.Seconds;
+            return startTime.Minute * 60 + startTime.Second;
         }
 
         private static void DrawAxis(Graphics gr)
         { 
-            var pen = new Pen(Color.Blue, 1);
+            var pen = new Pen(Color.Blue, 2);
+            var pen2 = new Pen(Color.Blue, 1);
+            pen2.DashPattern= new float[]{ 5, 10};
 
             gr.DrawLine(pen, margin, margin, margin, height - margin);
             var font = new Font(FontFamily.GenericSansSerif, fontSize);
@@ -98,7 +112,7 @@ namespace TimeDiagrammGeneratorLibrary
                 var x = margin + (i * stringWeight / inHourIntervalCount);
                 const int y = height - margin;
                 gr.DrawLine(pen, x, y, x, y + 5);
-
+                gr.DrawLine(pen2, x, y, x, margin);
                 gr.DrawString((i * 60/inHourIntervalCount).ToString() + " мин.", font, Brushes.Black, x, y + font.Height);
             }
 
@@ -115,7 +129,7 @@ namespace TimeDiagrammGeneratorLibrary
 
         private static int GetHour(int numByOrder)
         {
-            return (numByOrder + startHour)%24;
+            return (numByOrder + startTime.Hour)%24;
         }
     }
 }

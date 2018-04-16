@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:TimeDiagrammWPF_View"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
+    <Grid Background="White">
+        <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
 
     </Grid>
 </Window>

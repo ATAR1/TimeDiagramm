@@ -4,8 +4,9 @@ namespace TimeDiagrammGeneratorLibrary
 {
     public class Interval
     {
-        public TimeSpan StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         public TimeSpan Duration { get; set; }
+        public int Level { get; set; }
 
     }
 }

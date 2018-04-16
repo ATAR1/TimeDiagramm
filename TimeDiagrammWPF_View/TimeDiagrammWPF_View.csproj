@@ -67,24 +67,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interval.cs">
-      <DependentUpon>IntervalsDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IntervalsDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IntervalsDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IntervalsDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IntervalsDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IntervalsDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IntervalsDBModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="VM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -117,13 +99,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="IntervalsDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>IntervalsDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="IntervalsDBModel.edmx.diagram">
-      <DependentUpon>IntervalsDBModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -135,23 +110,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IntervalsDBTypesLibrary\IntervalsDBTypesLibrary.csproj">
+      <Project>{e3032533-d779-4c70-a0f9-3be535666557}</Project>
+      <Name>IntervalsDBTypesLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeDiagrammGeneratorLibrary\TimeDiagrammGeneratorLibrary.csproj">
       <Project>{6D750282-9484-4324-A22B-1C2461FC417A}</Project>
       <Name>TimeDiagrammGeneratorLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IntervalsDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IntervalsDBModel.Context.cs</LastGenOutput>
-      <DependentUpon>IntervalsDBModel.edmx</DependentUpon>
-    </Content>
     <Content Include="IntervalsDBModel.edmx.sql" />
-    <Content Include="IntervalsDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IntervalsDBModel.cs</LastGenOutput>
-      <DependentUpon>IntervalsDBModel.edmx</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
