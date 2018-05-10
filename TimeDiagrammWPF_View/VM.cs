@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using TimeDiagrammGeneratorLibrary;
@@ -24,9 +25,16 @@ namespace TimeDiagrammWPF_View
             //var diagramm = new TimeDiagramGenerator(new SplittedGanttChartModel(diagrams)).GenerateDiagramm();
             var diagramm = new GanttChartGenerator(diagrams).Draw();            
             MemoryStream ms = new MemoryStream();
-            diagramm.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            diagramm.Save(ms, ImageFormat.Bmp);
             Diagramm = ms;
+
+            MemoryStream ms1 = new MemoryStream();
+            diagramm = new BarChartGenerator(diagrams).Draw();
+            diagramm.Save(ms1, ImageFormat.Bmp);
+            Diagramm2 = ms1;
         }
         public Stream Diagramm { get; set; }
+
+        public Stream Diagramm2 { get; set; }
     }
 }

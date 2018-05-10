@@ -10,7 +10,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
     public class CaptionY : VisibleChartObject
     {
 
-        public CaptionY(GanttChartArea ganttChartArea)
+        public CaptionY(ChartArea ganttChartArea)
         {
             Owner = ganttChartArea;
         }

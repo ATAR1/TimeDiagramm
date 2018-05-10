@@ -33,7 +33,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         Brush[] Brushes => new Brush[]
         {
             new SolidBrush(_color),
-            new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, _color),
+            new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Black, _color),
             new HatchBrush(HatchStyle.Cross, Color.White, _color)
         };
 
