@@ -9,5 +9,6 @@
     <StackPanel Orientation="Horizontal" Background="White">
         <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
         <Image x:Name="image1" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm2}" Stretch="None"/>
+        <Image x:Name="image2" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm3}" Stretch="None"/>
     </StackPanel>
 </Window>

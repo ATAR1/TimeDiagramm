@@ -57,8 +57,10 @@
     <Compile Include="GraphicObjects\IntervalG.cs" />
     <Compile Include="GraphicObjects\SeparatorX.cs" />
     <Compile Include="GraphicObjects\SeparatorY.cs" />
+    <Compile Include="GraphicObjects\VerticalBar.cs" />
     <Compile Include="GraphModel.cs" />
     <Compile Include="GanttChartModel.cs" />
+    <Compile Include="HistogramGenerator.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="GanttChartGenerator.cs" />
     <Compile Include="SplittedGanttChartModel.cs" />

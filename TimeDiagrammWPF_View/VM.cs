@@ -32,9 +32,16 @@ namespace TimeDiagrammWPF_View
             diagramm = new BarChartGenerator(diagrams).Draw();
             diagramm.Save(ms1, ImageFormat.Bmp);
             Diagramm2 = ms1;
+
+            MemoryStream ms2 = new MemoryStream();
+            diagramm = new HistogramGenerator(diagrams).Draw();
+            diagramm.Save(ms2, ImageFormat.Bmp);
+            Diagramm3 = ms2;
         }
         public Stream Diagramm { get; set; }
 
         public Stream Diagramm2 { get; set; }
+
+        public Stream Diagramm3 { get; set; }
     }
 }
