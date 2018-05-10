@@ -12,14 +12,13 @@ namespace TimeDiagrammGeneratorLibrary
         const int width = 1000;
         const int height = 1000;
         private const int margin = 50;
-        private const int stringCount = 12;
-        private const int stringHeight = (height - 2* margin)/ stringCount;
+        
+        private static int stringHeight;
         private const int stringWeight = width - 2 * margin;
+        private const double pixelsPerSecond = stringWeight / 3600.0;
         private const int inHourIntervalCount = 12;
         private const int fontSize = 10;
         
-        private static DateTime startTime;
-        static int diagramCount;
         static Color backGroundColor = Color.FromArgb(245, 245, 245);
 
         private static Color[] diagramColors = new Color[]
@@ -30,79 +29,51 @@ namespace TimeDiagrammGeneratorLibrary
             Color.Red,
             Color.Yellow
         };
+        private SplittedGanttChartModel _model;
 
-        public static Bitmap GenerateDiagramm(List<Interval[]> diagrams)
+        public TimeDiagramGenerator(SplittedGanttChartModel model)
         {
-            startTime = new DateTime(2018,3,5,20,0,0); 
+            _model = model;
+            stringHeight = (height - 2 * margin) / model.ChartStrings.Count();
+        }
 
-            Bitmap canva = new Bitmap(width, height);
-            var gr = Graphics.FromImage(canva);
-            gr.FillRectangle(new SolidBrush(backGroundColor), new Rectangle(0, 0, width, width));
-            DrawAxis(gr);
-            diagramCount = diagrams.Count;
-            var diagramNum = 0;
-            foreach (var intervals in diagrams)
+        public Bitmap GenerateDiagramm()
+        {
+            var bitmap = new Bitmap(width, height);
+            var canva = Graphics.FromImage(bitmap);
+
+            canva.FillRectangle(new SolidBrush(backGroundColor), new Rectangle(0, 0, width, width));
+            DrawAxis(canva);
+            foreach (var chartString in _model.ChartStrings)
             {
-                diagramNum++;
-                foreach (var interval in intervals)
+                foreach (var graph in chartString.Graphs)
                 {
-                    if (interval.StartTime.Hour != (interval.StartTime + interval.Duration).Hour)
-                    {
-                        Tuple<Interval, Interval> pair = SplitInterval(interval);
-                        DrawInterval(gr, pair.Item1, diagramNum);
-                        DrawInterval(gr, pair.Item2, diagramNum);
-                    }
-                    else
-                        DrawInterval(gr, interval, diagramNum);
+                    foreach (var interval in graph.Intervals)
+                        DrawInterval(canva, interval, graph.Num, chartString);
                 }
             }
-            return canva;
-
+            return bitmap;
         }
 
-        private static Tuple<Interval, Interval> SplitInterval(Interval sourceInterval)
-        {
-            DateTime nxtH = new DateTime(sourceInterval.StartTime.Year, sourceInterval.StartTime.Month, sourceInterval.StartTime.Day, sourceInterval.StartTime.Hour, 0, 0).Add(new TimeSpan(1, 0, 0));
-            Interval firstInterval = new Interval()
-            {
-                StartTime = sourceInterval.StartTime,
-                Duration = nxtH.Add(TimeSpan.FromMilliseconds(-1)) - sourceInterval.StartTime,
-                Level = sourceInterval.Level
-            };
-            Interval secondInterval = new Interval()
-            {
-                StartTime = nxtH,
-                Duration = sourceInterval.Duration - firstInterval.Duration,
-                Level = sourceInterval.Level
-            };
 
-            return new Tuple<Interval, Interval>(firstInterval, secondInterval);
-        }
+        
 
-        private static void DrawInterval(Graphics gr, Interval interval,int diagramNum)
+        private static void DrawInterval(Graphics gr, Interval interval,int graphNum, ChartString chartString)
         {
-            if (interval.StartTime < startTime) return;
-            if (interval.StartTime >= startTime.AddHours(stringCount)) return;
-            var stringNum = (int)(interval.StartTime-startTime).TotalHours;
-            var stringY = height - margin - (stringNum * stringHeight);
-            var lineY = stringY - diagramNum * stringHeight / (diagramCount + 1);
-            const double pixelsPerSecond = stringWeight / 3600.0;
-            var lineStart = pixelsPerSecond * GetTotalSecondsAfterHour(interval.StartTime) + margin;
-            var lineStop = pixelsPerSecond * (GetTotalSecondsAfterHour(interval.StartTime) + interval.Duration.TotalSeconds) + margin;
-            var pen = new Pen(diagramColors[diagramNum - 1], 5);
+            var stringY = height - margin - (chartString.Num * stringHeight);
+            var lineY = stringY - (graphNum+1) * stringHeight / (chartString.Graphs.Count + 1);            
+            var lineStart = pixelsPerSecond * chartString.GetStartCoord(interval) + margin;
+            var lineStop = pixelsPerSecond * chartString.GetEndCoord(interval) + margin;
+            var pen = new Pen(diagramColors[graphNum], 5);
             if(interval.Level==0) pen = new Pen(Color.Red, 5);
             gr.DrawLine(pen, Convert.ToInt32(lineStart), lineY, Convert.ToInt32(lineStop), lineY);
         }
+        
 
-        private static int GetTotalSecondsAfterHour(DateTime startTime)
-        {
-            return startTime.Minute * 60 + startTime.Second;
-        }
-
-        private static void DrawAxis(Graphics gr)
+        private void DrawAxis(Graphics gr)
         { 
-            var pen = new Pen(Color.Blue, 2);
-            var pen2 = new Pen(Color.Blue, 1);
+            var pen = new Pen(Color.Black, 2);
+            var pen2 = new Pen(Color.Black, 1);
             pen2.DashPattern= new float[]{ 5, 10};
 
             gr.DrawLine(pen, margin, margin, margin, height - margin);
@@ -116,20 +87,15 @@ namespace TimeDiagrammGeneratorLibrary
                 gr.DrawString((i * 60/inHourIntervalCount).ToString() + " мин.", font, Brushes.Black, x, y + font.Height);
             }
 
-            for (int i = 0; i < stringCount; i++)
+            foreach (var chartString in _model.ChartStrings)
             {
-                var y = height - margin - (i * stringHeight);
+                var y = height - margin - (chartString.Num * stringHeight);
                 gr.DrawLine(pen, margin, y, width - margin, y);
-
-                var captionY = (GetHour(i)).ToString() + " час.";
+                var captionY = chartString.StartTime.Hour.ToString() + " час.";
                 var stringSize = gr.MeasureString(captionY, font);
                 gr.DrawString(captionY, font, Brushes.Black, margin - stringSize.Width, y - font.Height/2);
             }
         }
-
-        private static int GetHour(int numByOrder)
-        {
-            return (numByOrder + startTime.Hour)%24;
-        }
+        
     }
 }
