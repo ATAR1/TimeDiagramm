@@ -25,8 +25,11 @@ namespace TimeDiagrammWPF_View
             var diagramm = new GanttChartGenerator(diagrams).Draw();            
             MemoryStream ms = new MemoryStream();
             diagramm.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            Diagramm2 = ms;
             Diagramm = ms;
+            
         }
         public Stream Diagramm { get; set; }
+        public Stream Diagramm2 { get; set; }
     }
 }
