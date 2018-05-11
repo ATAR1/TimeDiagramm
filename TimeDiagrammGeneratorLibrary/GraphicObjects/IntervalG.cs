@@ -37,12 +37,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                                     new HatchBrush(HatchStyle.DiagonalCross, Color.White, _color)
                                 };
 
-        public int Level { get; set; }
 
         public override void Draw(Graphics gr)
         {
-            //gr.DrawLine(pen, StartX, Y, EndX, Y );
-            //gr.FillRectangle(new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, _color), StartX, Y, EndX - StartX, 5);
             gr.FillRectangle(_brushes[Level], StartX, Y, EndX - StartX, 10);
             gr.DrawRectangle(new Pen(Color.Black), StartX, Y, EndX-StartX, 10);            
         }
