@@ -55,8 +55,8 @@
     <Compile Include="GraphicObjects\ChartObject.cs" />
     <Compile Include="GraphicObjects\GanttChartArea.cs" />
     <Compile Include="GraphicObjects\IntervalG.cs" />
-    <Compile Include="GraphicObjects\SeparatorX.cs" />
-    <Compile Include="GraphicObjects\SeparatorY.cs" />
+    <Compile Include="GraphicObjects\LeftBorder.cs" />
+    <Compile Include="GraphicObjects\BottomBorder.cs" />
     <Compile Include="GraphicObjects\VerticalBar.cs" />
     <Compile Include="GraphModel.cs" />
     <Compile Include="GanttChartModel.cs" />

@@ -10,7 +10,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         public GanttChartGenerator(SplittedGanttChartModel model)
         {
             _chart = new Chart(1000,1000,50);
-            _chart.AddElement(new SeparatorX(_chart.InnerArea));
+            _chart.AddElement(new LeftBorder(_chart.InnerArea));
             var axisX = new AxisX(_chart,60);
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
             var axisX_Marks = axisX.SplitAxis(12);
@@ -22,9 +22,8 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             {
                 var chartString1 =chartAreaSplitted.CreateString();                
                 var gantChartArea = new GanttChartArea(chartString1);
-                var separator = new SeparatorY(chartString1);
                 var captionY = new CaptionY(gantChartArea) { Caption = chartString.StartChartTime.Hour+" час."};
-                _chart.AddElement(separator);
+                _chart.AddElement(new BottomBorder(chartString1));
                 _chart.AddElement(captionY);
                 gantChartArea.GraphCount = model.Graphs.Count;
                 gantChartArea.StartHour = chartString.StartChartTime.Hour;

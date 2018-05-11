@@ -15,14 +15,14 @@ namespace TimeDiagrammGeneratorLibrary
         public HistogramGenerator(SplittedGanttChartModel model)
         {
             _chart = new Chart(1000, 300, 50);
-            _chart.AddElement(new SeparatorY(_chart.InnerArea));
-            _chart.AddElement(new SeparatorX(_chart.InnerArea));
+            _chart.AddElement(new BottomBorder(_chart.InnerArea));
+            _chart.AddElement(new LeftBorder(_chart.InnerArea));
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
             Interval oldInterval = null;
             foreach (var chartString in model.ChartStrings)
             {
                 var chartString1 = chartAreaSplitted.CreateString();
-                _chart.AddElement(new SeparatorY(chartString1));
+                _chart.AddElement(new BottomBorder(chartString1));
                 var gantChartArea = new GanttChartArea(chartString1);
                 var captionY = new CaptionY(chartString1) { Caption = chartString.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);

@@ -2,18 +2,19 @@
 
 namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
-    public class SeparatorX : VisibleChartObject
+    public class BottomBorder : VisibleChartObject
     {
-        public SeparatorX(ChartArea owner)
+
+        public BottomBorder(ChartArea owner)
         {
-            Owner = owner;
+            this.Owner = owner;
         }
-        
+
         public Pen Pen { get; set; } = new Pen(Color.Black, 2);
 
         public override void Draw(Graphics gr)
         {
-            gr.DrawLine(this.Pen, Owner.Left, Owner.Top, Owner.Left, Owner.Bottom);
+            gr.DrawLine(this.Pen, Owner.Left, Owner.Bottom, Owner.Left + Owner.Width, Owner.Bottom);
         }
 
     }
