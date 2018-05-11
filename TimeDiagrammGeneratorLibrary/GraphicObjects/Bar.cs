@@ -17,6 +17,11 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             Owner = owner;
         }
 
+        public int A => Values.Sum();
+
+        public int A1 => Values[0];
+
+        public float Top => Owner.Bottom - 25;
         public int[] Values { get; set; }
 
         Brush[] Brushes => new Brush[]

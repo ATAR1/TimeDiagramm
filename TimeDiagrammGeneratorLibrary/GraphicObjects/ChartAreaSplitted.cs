@@ -24,7 +24,9 @@
 
             public override int Height => Owner.Height / ((ChartAreaSplitted)Owner).StringCount;
 
-            public override int Bottom => Owner.Bottom-Height * (Num);  
+            public override int Top => Bottom - Height;
+
+            public override int Bottom => Owner.Bottom-Height * Num;  
         }
         
     }

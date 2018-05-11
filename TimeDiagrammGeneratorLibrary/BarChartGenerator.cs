@@ -14,22 +14,25 @@ namespace TimeDiagrammGeneratorLibrary
             _chart.AddElement(new BottomBorder(_chart.InnerArea));
             _chart.AddElement(new LeftBorder(_chart.InnerArea));
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
-            foreach (var chartString in model.ChartStrings)
+            foreach (var chartStringModel in model.ChartStrings)
             {
-                var chartString1 = chartAreaSplitted.CreateString();
-                _chart.AddElement(new BottomBorder(chartString1));
-                var captionY = new CaptionY(chartString1) { Caption = chartString.StartChartTime.Hour + " час." };
+                var chartString = chartAreaSplitted.CreateString();
+                _chart.AddElement(new BottomBorder(chartString));
+                var captionY = new CaptionY(chartString) { Caption = chartStringModel.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
-                var bar = new Bar(chartString1)
-                {
+                var en = model.Graphs.First().Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
+                var bar = new Bar(chartString)
+                {                    
                     Values = new int[]
                     {
-                        chartString.Graphs.First().Intervals.Where(i=>i.Level==1).Count()
-                        ,chartString.Graphs.First().Intervals.Where(i => i.Level == 0).Count()
-                        ,chartString.Graphs.First().Intervals.Where(i => i.Level == 2).Count()
+                        en.Where(i=>i.Level==1).Count()
+                        ,en.Where(i => i.Level == 0).Count()
+                        ,en.Where(i => i.Level == 2).Count()
                     }
                 };
+                var barCaption = new BarCaption(chartString ,bar);
                 _chart.AddElement(bar);
+                _chart.AddElement(barCaption);
             }
 
         }
