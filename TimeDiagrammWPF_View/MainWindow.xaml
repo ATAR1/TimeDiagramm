@@ -7,13 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel Orientation="Horizontal" Background="White">
-        <Border BorderBrush="Red" 
-        BorderThickness="2"  Margin="3">
-            <Image x:Name="image" Source="{Binding Diagramm}"/>
-        </Border>
-
-        <Border BorderBrush="Green" BorderThickness="2"  Margin="3">
-            <Image x:Name="image2" Source="{Binding Diagramm2}"/>
-        </Border>
+        <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
+        <Image x:Name="image1" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm2}" Stretch="None"/>
+        <Image x:Name="image2" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm3}" Stretch="None"/>
     </StackPanel>
 </Window>

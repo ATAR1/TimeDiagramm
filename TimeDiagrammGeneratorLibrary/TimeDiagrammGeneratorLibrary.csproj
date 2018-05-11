@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarChartGenerator.cs" />
     <Compile Include="GraphicObjects\AuxiliaryLine.cs" />
     <Compile Include="GraphicObjects\AxisX.cs" />
     <Compile Include="ChartString.cs" />
     <Compile Include="GraphicObjects\AxisXMark.cs" />
     <Compile Include="GraphicObjects\AxisXMarkCaption.cs" />
+    <Compile Include="GraphicObjects\Bar.cs" />
     <Compile Include="GraphicObjects\CaptionY.cs" />
     <Compile Include="GraphicObjects\Chart.cs" />
     <Compile Include="GraphicObjects\ChartArea.cs" />
@@ -55,8 +57,10 @@
     <Compile Include="GraphicObjects\IntervalG.cs" />
     <Compile Include="GraphicObjects\SeparatorX.cs" />
     <Compile Include="GraphicObjects\SeparatorY.cs" />
+    <Compile Include="GraphicObjects\VerticalBar.cs" />
     <Compile Include="GraphModel.cs" />
     <Compile Include="GanttChartModel.cs" />
+    <Compile Include="HistogramGenerator.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="GanttChartGenerator.cs" />
     <Compile Include="SplittedGanttChartModel.cs" />
