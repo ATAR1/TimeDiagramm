@@ -21,7 +21,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             foreach (var chartString in model.ChartStrings)
             {
                 var chartString1 =chartAreaSplitted.CreateString();                
-                var gantChartArea = new GanttChartArea(chartString1);
+                var gantChartArea = new TimeChartArea(chartString1);
                 var captionY = new CaptionY(gantChartArea) { Caption = chartString.StartChartTime.Hour+" час."};
                 _chart.AddElement(new BottomBorder(chartString1));
                 _chart.AddElement(captionY);

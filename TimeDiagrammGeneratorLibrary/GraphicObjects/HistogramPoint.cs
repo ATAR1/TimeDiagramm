@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
-    public class VerticalBar : VisibleChartObject
+    public class HistogramPoint : VisibleChartObject
     {
-        public VerticalBar(ChartArea owner)
+
+        public HistogramPoint(TimeChartArea timeChartArea)
         {
-            this.Owner = owner;
+            Owner = timeChartArea;
         }
 
         public int Value { get;  set; }
@@ -19,7 +20,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public override void Draw(Graphics gr)
         {
-            gr.DrawLine(new Pen(Color.Green,2),Owner.Left + X, Owner.Bottom, Owner.Left + X, Owner.Bottom - Value);
+            gr.FillRectangle(Brushes.Red, Owner.Left + X - 1, Owner.Bottom - Value, 2, 2);
         }
     }
 }

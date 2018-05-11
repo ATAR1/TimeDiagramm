@@ -23,14 +23,17 @@ namespace TimeDiagrammGeneratorLibrary
             {
                 var chartString1 = chartAreaSplitted.CreateString();
                 _chart.AddElement(new BottomBorder(chartString1));
-                var gantChartArea = new GanttChartArea(chartString1);
+                var timeChartArea = new TimeChartArea(chartString1);
                 var captionY = new CaptionY(chartString1) { Caption = chartString.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
                 
-                foreach (var interval in model.Graphs.First().Intervals.Where(i=>(i.StartTime>=chartString.StartChartTime)&& (i.StartTime <= chartString.EndChartTime)).OrderBy(i=>i.StartTime))
+                foreach (IntervalDefectoscope interval in model.Graphs.First().Intervals.Where(i=>(i.StartTime>=chartString.StartChartTime)&& (i.StartTime <= chartString.EndChartTime)).OrderBy(i=>i.StartTime))
                 {
-                    int value = (oldInterval == null) ? 0 : (int)(oldInterval.Duration.TotalSeconds/60 / (oldInterval.StartTime - interval.StartTime).TotalHours);
-                    var bar = new VerticalBar(gantChartArea) { X = Convert.ToInt32(chartString.GetStartCoord(interval) * gantChartArea.PixelPerSecond), Value = value };
+                    int value = (oldInterval == null) ? 0 : (int)(oldInterval.Duration.TotalSeconds/60 / (interval.StartTime - oldInterval.StartTime).TotalHours);
+                    var x = Convert.ToInt32(chartString.GetStartCoord(interval) * timeChartArea.PixelPerSecond);
+                    var bar = new VerticalBar(timeChartArea) { X = x, Value = value };
+                    var point = new HistogramPoint(timeChartArea) { X = x, Value = interval.EstimatedSpeed };
+                    _chart.AddElement(point);
                     _chart.AddElement(bar);
                     oldInterval = interval;
                 }                

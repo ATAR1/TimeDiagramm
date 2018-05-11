@@ -18,7 +18,7 @@ namespace TimeDiagrammWPF_View
             var list2 = ctx.Intervals.Where(i => i.Object == "УНСК.ТО1.АУЗККТ").ToList();
             var list3 = ctx.Intervals.Where(i => i.Object == "УНСК.ТО1.МДТ 6").ToList();
             var diagrams = new SplittedGanttChartModel(new DateTime(2018, 3, 6, 20, 0, 0), new DateTime(2018, 3, 7, 8, 0, 0));
-            diagrams.AddGraph("МДТ 6", list.Select(i => new Interval() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime }).ToArray());
+            diagrams.AddGraph("МДТ 6", list.Select(i => new IntervalDefectoscope() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime, Speed=211, EstimatedSpeed= 60 }).ToArray());
             diagrams.AddGraph("УНСК.ТО1.АУЗККТ", list2.Select(i => new Interval() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime }).ToArray());
             diagrams.AddGraph("УНСК.ТО1.МДТ 6", list3.Select(i => new Interval() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime }).ToArray());
 

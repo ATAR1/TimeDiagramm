@@ -54,7 +54,8 @@
     <Compile Include="GraphicObjects\ChartArea.cs" />
     <Compile Include="GraphicObjects\ChartAreaSplitted.cs" />
     <Compile Include="GraphicObjects\ChartObject.cs" />
-    <Compile Include="GraphicObjects\GanttChartArea.cs" />
+    <Compile Include="GraphicObjects\TimeChartArea.cs" />
+    <Compile Include="GraphicObjects\HistogramPoint.cs" />
     <Compile Include="GraphicObjects\IntervalG.cs" />
     <Compile Include="GraphicObjects\LeftBorder.cs" />
     <Compile Include="GraphicObjects\BottomBorder.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="HistogramGenerator.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="GanttChartGenerator.cs" />
+    <Compile Include="IntervalDefectoscope.cs" />
     <Compile Include="SplittedGanttChartModel.cs" />
     <Compile Include="TimeDiagramGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
