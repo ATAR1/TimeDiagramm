@@ -37,7 +37,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                             case "МДТ 6":
                                 color = Color.Green;
                                 break;
-                            case "УНСК.ТО1.АУЗККТ":
+                            case "Сканер":
                                 color = Color.Blue;
                                 break;
                             case "УНСК.ТО1.МДТ 6":

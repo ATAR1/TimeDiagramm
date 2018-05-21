@@ -25,8 +25,8 @@ namespace TimeDiagrammGeneratorLibrary
                 {                    
                     Values = new int[]
                     {
-                        en.Where(i=>i.Level==1).Count()
-                        ,en.Where(i => i.Level == 0).Count()
+                        en.Where(i => i.Level == 0).Count()
+                        ,en.Where(i=>i.Level==1).Count()
                         ,en.Where(i => i.Level == 2).Count()
                     }
                 };

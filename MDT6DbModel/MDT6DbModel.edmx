@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MDT6DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Defects">
+          <Key>
+            <PropertyRef Name="id_defects" />
+          </Key>
+          <Property Name="id_defects" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="num_defects" Type="smallint" />
+          <Property Name="defects" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Melts">
+          <Key>
+            <PropertyRef Name="id_melt" />
+          </Key>
+          <Property Name="id_melt" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="melt" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="standart" Type="int" Nullable="false" />
+          <Property Name="typesize" Type="int" Nullable="false" />
+          <Property Name="name_control_sample" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="summ_tubes" Type="smallint" Nullable="false" />
+          <Property Name="summ_brak" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="id_setting" />
+          </Key>
+          <Property Name="id_setting" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="setting" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Shifts">
+          <Key>
+            <PropertyRef Name="id_shift" />
+          </Key>
+          <Property Name="id_shift" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="shCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="shift" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="operator" Type="smallint" Nullable="false" />
+          <Property Name="summ_tubes" Type="smallint" Nullable="false" />
+          <Property Name="summ_brak" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Standarts">
+          <Key>
+            <PropertyRef Name="id_standart" />
+          </Key>
+          <Property Name="id_standart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="standart" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="visible" Type="bit" Nullable="false" />
+          <Property Name="date_deleted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tubes">
+          <Key>
+            <PropertyRef Name="id_tube" />
+          </Key>
+          <Property Name="id_tube" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="shift" Type="smallint" Nullable="false" />
+          <Property Name="melt" Type="smallint" Nullable="false" />
+          <Property Name="num_tube_shift" Type="smallint" Nullable="false" />
+          <Property Name="num_tube_melt" Type="smallint" Nullable="false" />
+          <Property Name="s_map_defects" Type="nvarchar" MaxLength="70" />
+          <Property Name="speedt" Type="smallint" Nullable="false" />
+          <Property Name="lent" Type="int" Nullable="false" />
+          <Property Name="note" Type="char" MaxLength="15" />
+          <Property Name="setting" Type="int" />
+          <Property Name="defects" Type="int" />
+        </EntityType>
+        <EntityType Name="Typesizes">
+          <Key>
+            <PropertyRef Name="id_typesize" />
+          </Key>
+          <Property Name="id_typesize" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="typesize" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="visible" Type="bit" Nullable="false" />
+          <Property Name="date_deleted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="otchestvo" Type="varchar" MaxLength="33" />
+          <Property Name="visible" Type="bit" Nullable="false" />
+          <Property Name="date_deleted" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Melts__standart__117F9D94">
+          <End Role="Standarts" Type="Self.Standarts" Multiplicity="1" />
+          <End Role="Melts" Type="Self.Melts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Standarts">
+              <PropertyRef Name="id_standart" />
+            </Principal>
+            <Dependent Role="Melts">
+              <PropertyRef Name="standart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Melts__typesize__1273C1CD">
+          <End Role="Typesizes" Type="Self.Typesizes" Multiplicity="1" />
+          <End Role="Melts" Type="Self.Melts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Typesizes">
+              <PropertyRef Name="id_typesize" />
+            </Principal>
+            <Dependent Role="Melts">
+              <PropertyRef Name="typesize" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shifts__operator__182C9B23">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Shifts" Type="Self.Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="Shifts">
+              <PropertyRef Name="operator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__defects__20C1E124">
+          <End Role="Defects" Type="Self.Defects" Multiplicity="0..1" />
+          <End Role="Tubes" Type="Self.Tubes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Defects">
+              <PropertyRef Name="id_defects" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="defects" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__melt__1ED998B2">
+          <End Role="Melts" Type="Self.Melts" Multiplicity="1" />
+          <End Role="Tubes" Type="Self.Tubes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Melts">
+              <PropertyRef Name="id_melt" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="melt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__setting__1FCDBCEB">
+          <End Role="Settings" Type="Self.Settings" Multiplicity="0..1" />
+          <End Role="Tubes" Type="Self.Tubes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Settings">
+              <PropertyRef Name="id_setting" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="setting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__shift__1DE57479">
+          <End Role="Shifts" Type="Self.Shifts" Multiplicity="1" />
+          <End Role="Tubes" Type="Self.Tubes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shifts">
+              <PropertyRef Name="id_shift" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="shift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MDT6DBModelContainer">
+          <EntitySet Name="Defects" EntityType="Self.Defects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Melts" EntityType="Self.Melts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shifts" EntityType="Self.Shifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Standarts" EntityType="Self.Standarts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tubes" EntityType="Self.Tubes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Typesizes" EntityType="Self.Typesizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Melts__standart__117F9D94" Association="Self.FK__Melts__standart__117F9D94">
+            <End Role="Standarts" EntitySet="Standarts" />
+            <End Role="Melts" EntitySet="Melts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Melts__typesize__1273C1CD" Association="Self.FK__Melts__typesize__1273C1CD">
+            <End Role="Typesizes" EntitySet="Typesizes" />
+            <End Role="Melts" EntitySet="Melts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shifts__operator__182C9B23" Association="Self.FK__Shifts__operator__182C9B23">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Shifts" EntitySet="Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__defects__20C1E124" Association="Self.FK__Tubes__defects__20C1E124">
+            <End Role="Defects" EntitySet="Defects" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__melt__1ED998B2" Association="Self.FK__Tubes__melt__1ED998B2">
+            <End Role="Melts" EntitySet="Melts" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__setting__1FCDBCEB" Association="Self.FK__Tubes__setting__1FCDBCEB">
+            <End Role="Settings" EntitySet="Settings" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__shift__1DE57479" Association="Self.FK__Tubes__shift__1DE57479">
+            <End Role="Shifts" EntitySet="Shifts" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MDT6DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Defect">
+          <Key>
+            <PropertyRef Name="id_defects" />
+          </Key>
+          <Property Name="id_defects" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="num_defects" Type="Int16" />
+          <Property Name="defects" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Tubes" Relationship="Self.FK__Tubes__defects__20C1E124" FromRole="Defects" ToRole="Tubes" />
+        </EntityType>
+        <EntityType Name="Melt">
+          <Key>
+            <PropertyRef Name="id_melt" />
+          </Key>
+          <Property Name="id_melt" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MeltNum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="standart_id" Type="Int32" Nullable="false" />
+          <Property Name="typesize_id" Type="Int32" Nullable="false" />
+          <Property Name="name_control_sample" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="summ_tubes" Type="Int16" Nullable="false" />
+          <Property Name="summ_brak" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Standart" Relationship="Self.FK__Melts__standart__117F9D94" FromRole="Melts" ToRole="Standarts" />
+          <NavigationProperty Name="Typesize" Relationship="Self.FK__Melts__typesize__1273C1CD" FromRole="Melts" ToRole="Typesizes" />
+          <NavigationProperty Name="Tubes" Relationship="Self.FK__Tubes__melt__1ED998B2" FromRole="Melts" ToRole="Tubes" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="id_setting" />
+          </Key>
+          <Property Name="id_setting" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="setting1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Tubes" Relationship="Self.FK__Tubes__setting__1FCDBCEB" FromRole="Settings" ToRole="Tubes" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="id_shift" />
+          </Key>
+          <Property Name="id_shift" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="shCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="shift1" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="operator" Type="Int16" Nullable="false" />
+          <Property Name="summ_tubes" Type="Int16" Nullable="false" />
+          <Property Name="summ_brak" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Shifts__operator__182C9B23" FromRole="Shifts" ToRole="Users" />
+          <NavigationProperty Name="Tubes" Relationship="Self.FK__Tubes__shift__1DE57479" FromRole="Shifts" ToRole="Tubes" />
+        </EntityType>
+        <EntityType Name="Standart">
+          <Key>
+            <PropertyRef Name="id_standart" />
+          </Key>
+          <Property Name="id_standart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="standart1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="visible" Type="Boolean" Nullable="false" />
+          <Property Name="date_deleted" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Melts" Relationship="Self.FK__Melts__standart__117F9D94" FromRole="Standarts" ToRole="Melts" />
+        </EntityType>
+        <EntityType Name="Tube">
+          <Key>
+            <PropertyRef Name="id_tube" />
+          </Key>
+          <Property Name="id_tube" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="shift_id" Type="Int16" Nullable="false" />
+          <Property Name="melt_id" Type="Int16" Nullable="false" />
+          <Property Name="num_tube_shift" Type="Int16" Nullable="false" />
+          <Property Name="num_tube_melt" Type="Int16" Nullable="false" />
+          <Property Name="s_map_defects" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="speedt" Type="Int16" Nullable="false" />
+          <Property Name="lent" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="setting_id" Type="Int32" />
+          <Property Name="defects" Type="Int32" />
+          <NavigationProperty Name="Defect" Relationship="Self.FK__Tubes__defects__20C1E124" FromRole="Tubes" ToRole="Defects" />
+          <NavigationProperty Name="Melt" Relationship="Self.FK__Tubes__melt__1ED998B2" FromRole="Tubes" ToRole="Melts" />
+          <NavigationProperty Name="Setting" Relationship="Self.FK__Tubes__setting__1FCDBCEB" FromRole="Tubes" ToRole="Settings" />
+          <NavigationProperty Name="Shift" Relationship="Self.FK__Tubes__shift__1DE57479" FromRole="Tubes" ToRole="Shifts" />
+        </EntityType>
+        <EntityType Name="Typesize">
+          <Key>
+            <PropertyRef Name="id_typesize" />
+          </Key>
+          <Property Name="id_typesize" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="typesize1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="visible" Type="Boolean" Nullable="false" />
+          <Property Name="date_deleted" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Melts" Relationship="Self.FK__Melts__typesize__1273C1CD" FromRole="Typesizes" ToRole="Melts" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="surname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+          <Property Name="visible" Type="Boolean" Nullable="false" />
+          <Property Name="date_deleted" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Shifts" Relationship="Self.FK__Shifts__operator__182C9B23" FromRole="Users" ToRole="Shifts" />
+        </EntityType>
+        <Association Name="FK__Tubes__defects__20C1E124">
+          <End Role="Defects" Type="Self.Defect" Multiplicity="0..1" />
+          <End Role="Tubes" Type="Self.Tube" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Defects">
+              <PropertyRef Name="id_defects" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="defects" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Melts__standart__117F9D94">
+          <End Role="Standarts" Type="Self.Standart" Multiplicity="1" />
+          <End Role="Melts" Type="Self.Melt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Standarts">
+              <PropertyRef Name="id_standart" />
+            </Principal>
+            <Dependent Role="Melts">
+              <PropertyRef Name="standart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Melts__typesize__1273C1CD">
+          <End Role="Typesizes" Type="Self.Typesize" Multiplicity="1" />
+          <End Role="Melts" Type="Self.Melt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Typesizes">
+              <PropertyRef Name="id_typesize" />
+            </Principal>
+            <Dependent Role="Melts">
+              <PropertyRef Name="typesize_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__melt__1ED998B2">
+          <End Role="Melts" Type="Self.Melt" Multiplicity="1" />
+          <End Role="Tubes" Type="Self.Tube" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Melts">
+              <PropertyRef Name="id_melt" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="melt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__setting__1FCDBCEB">
+          <End Role="Settings" Type="Self.Setting" Multiplicity="0..1" />
+          <End Role="Tubes" Type="Self.Tube" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Settings">
+              <PropertyRef Name="id_setting" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="setting_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shifts__operator__182C9B23">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Shifts" Type="Self.Shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="Shifts">
+              <PropertyRef Name="operator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tubes__shift__1DE57479">
+          <End Role="Shifts" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Tubes" Type="Self.Tube" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shifts">
+              <PropertyRef Name="id_shift" />
+            </Principal>
+            <Dependent Role="Tubes">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MDT6DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Defects" EntityType="Self.Defect" />
+          <EntitySet Name="Melts" EntityType="Self.Melt" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
+          <EntitySet Name="Shifts" EntityType="Self.Shift" />
+          <EntitySet Name="Standarts" EntityType="Self.Standart" />
+          <EntitySet Name="Tubes" EntityType="Self.Tube" />
+          <EntitySet Name="Typesizes" EntityType="Self.Typesize" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Tubes__defects__20C1E124" Association="Self.FK__Tubes__defects__20C1E124">
+            <End Role="Defects" EntitySet="Defects" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Melts__standart__117F9D94" Association="Self.FK__Melts__standart__117F9D94">
+            <End Role="Standarts" EntitySet="Standarts" />
+            <End Role="Melts" EntitySet="Melts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Melts__typesize__1273C1CD" Association="Self.FK__Melts__typesize__1273C1CD">
+            <End Role="Typesizes" EntitySet="Typesizes" />
+            <End Role="Melts" EntitySet="Melts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__melt__1ED998B2" Association="Self.FK__Tubes__melt__1ED998B2">
+            <End Role="Melts" EntitySet="Melts" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__setting__1FCDBCEB" Association="Self.FK__Tubes__setting__1FCDBCEB">
+            <End Role="Settings" EntitySet="Settings" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shifts__operator__182C9B23" Association="Self.FK__Shifts__operator__182C9B23">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Shifts" EntitySet="Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tubes__shift__1DE57479" Association="Self.FK__Tubes__shift__1DE57479">
+            <End Role="Shifts" EntitySet="Shifts" />
+            <End Role="Tubes" EntitySet="Tubes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MDT6DBModelContainer" CdmEntityContainer="MDT6DBEntities">
+          <EntitySetMapping Name="Defects">
+            <EntityTypeMapping TypeName="MDT6DBModel.Defect">
+              <MappingFragment StoreEntitySet="Defects">
+                <ScalarProperty Name="id_defects" ColumnName="id_defects" />
+                <ScalarProperty Name="dCreatedDate" ColumnName="dCreatedDate" />
+                <ScalarProperty Name="num_defects" ColumnName="num_defects" />
+                <ScalarProperty Name="defects" ColumnName="defects" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Melts">
+            <EntityTypeMapping TypeName="MDT6DBModel.Melt">
+              <MappingFragment StoreEntitySet="Melts">
+                <ScalarProperty Name="id_melt" ColumnName="id_melt" />
+                <ScalarProperty Name="mCreatedDate" ColumnName="mCreatedDate" />
+                <ScalarProperty Name="MeltNum" ColumnName="melt" />
+                <ScalarProperty Name="standart_id" ColumnName="standart" />
+                <ScalarProperty Name="typesize_id" ColumnName="typesize" />
+                <ScalarProperty Name="name_control_sample" ColumnName="name_control_sample" />
+                <ScalarProperty Name="summ_tubes" ColumnName="summ_tubes" />
+                <ScalarProperty Name="summ_brak" ColumnName="summ_brak" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="MDT6DBModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="id_setting" ColumnName="id_setting" />
+                <ScalarProperty Name="sCreatedDate" ColumnName="sCreatedDate" />
+                <ScalarProperty Name="setting1" ColumnName="setting" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shifts">
+            <EntityTypeMapping TypeName="MDT6DBModel.Shift">
+              <MappingFragment StoreEntitySet="Shifts">
+                <ScalarProperty Name="id_shift" ColumnName="id_shift" />
+                <ScalarProperty Name="shCreatedDate" ColumnName="shCreatedDate" />
+                <ScalarProperty Name="shift1" ColumnName="shift" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="summ_tubes" ColumnName="summ_tubes" />
+                <ScalarProperty Name="summ_brak" ColumnName="summ_brak" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Standarts">
+            <EntityTypeMapping TypeName="MDT6DBModel.Standart">
+              <MappingFragment StoreEntitySet="Standarts">
+                <ScalarProperty Name="id_standart" ColumnName="id_standart" />
+                <ScalarProperty Name="sCreatedDate" ColumnName="sCreatedDate" />
+                <ScalarProperty Name="standart1" ColumnName="standart" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="date_deleted" ColumnName="date_deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tubes">
+            <EntityTypeMapping TypeName="MDT6DBModel.Tube">
+              <MappingFragment StoreEntitySet="Tubes">
+                <ScalarProperty Name="id_tube" ColumnName="id_tube" />
+                <ScalarProperty Name="tCreatedDate" ColumnName="tCreatedDate" />
+                <ScalarProperty Name="shift_id" ColumnName="shift" />
+                <ScalarProperty Name="melt_id" ColumnName="melt" />
+                <ScalarProperty Name="num_tube_shift" ColumnName="num_tube_shift" />
+                <ScalarProperty Name="num_tube_melt" ColumnName="num_tube_melt" />
+                <ScalarProperty Name="s_map_defects" ColumnName="s_map_defects" />
+                <ScalarProperty Name="speedt" ColumnName="speedt" />
+                <ScalarProperty Name="lent" ColumnName="lent" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="setting_id" ColumnName="setting" />
+                <ScalarProperty Name="defects" ColumnName="defects" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Typesizes">
+            <EntityTypeMapping TypeName="MDT6DBModel.Typesize">
+              <MappingFragment StoreEntitySet="Typesizes">
+                <ScalarProperty Name="id_typesize" ColumnName="id_typesize" />
+                <ScalarProperty Name="tCreatedDate" ColumnName="tCreatedDate" />
+                <ScalarProperty Name="typesize1" ColumnName="typesize" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="date_deleted" ColumnName="date_deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MDT6DBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="uCreatedDate" ColumnName="uCreatedDate" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="date_deleted" ColumnName="date_deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

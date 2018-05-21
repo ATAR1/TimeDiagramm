@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6f76000c62e14f1c8cd401993ec30570" Name="Diagram1">
+        <EntityTypeShape EntityType="MDT6DBModel.Defect" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.Melt" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.Setting" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.Shift" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.Standart" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.Tube" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.Typesize" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDT6DBModel.User" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
+        <AssociationConnector Association="MDT6DBModel.FK__Tubes__defects__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="MDT6DBModel.FK__Melts__standart__117F9D94" ManuallyRouted="false" />
+        <AssociationConnector Association="MDT6DBModel.FK__Melts__typesize__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="MDT6DBModel.FK__Tubes__melt__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="MDT6DBModel.FK__Tubes__setting__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="MDT6DBModel.FK__Shifts__operator__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="MDT6DBModel.FK__Tubes__shift__1DE57479" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

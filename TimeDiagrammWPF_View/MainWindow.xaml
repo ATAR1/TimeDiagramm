@@ -4,11 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeDiagrammWPF_View"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <StackPanel Orientation="Horizontal" Background="White">
-        <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
-        <Image x:Name="image1" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm2}" Stretch="None"/>
-        <Image x:Name="image2" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm3}" Stretch="None"/>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Сформировать диаграмму" Command="{Binding GenerateDiagrammCommand}"/>
+            <MenuItem Header="Данные">
+                <MenuItem Header="Сбросить локальную БД" Command="{Binding ClearLocalBDCommand}"/>
+                <MenuItem Header="Загрузить данные МДТ6" Command="{Binding LoadMDT6DataCommand}"/>
+                <MenuItem Header="Загрузить данные сканер" Command="{Binding LoadDataScanerCommand}" />
+                <MenuItem Header="Загрузить данные из журнала дежурных"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DatePicker Grid.Column="0" MinWidth="100"  SelectedDate="{Binding GenerateDiagrammCommand.DateBegin}"/>
+            <xctk:TimePicker Grid.Column="1" MinWidth="100" Value="{Binding GenerateDiagrammCommand.DateBegin}"/>
+            <DatePicker Grid.Column="2" MinWidth="100"  SelectedDate="{Binding GenerateDiagrammCommand.DateEnd}"/>
+            <xctk:TimePicker Grid.Column="3" MinWidth="100" Value="{Binding GenerateDiagrammCommand.DateEnd}"/>
+            <Button Content="Диаграмма" Grid.Column="4" Command="{Binding GenerateDiagrammCommand}"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Background="White" Grid.Row="2">
+            <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
+            <Image x:Name="image1" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm2}" Stretch="None"/>
+            <Image x:Name="image2" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm3}" Stretch="None"/>
+        </StackPanel>
+    </Grid>
 </Window>
