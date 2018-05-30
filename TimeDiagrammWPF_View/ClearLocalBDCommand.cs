@@ -17,7 +17,7 @@ namespace TimeDiagrammWPF_View
         {
             using (var ctx = new IntervalsDBModelContainer())
             {
-                ctx.Database.ExecuteSqlCommand("TRUNCATE TABLE IntervalSet");
+                ctx.Database.ExecuteSqlCommand("delete from IntervalSet \n dbcc checkident('IntervalSet', reseed, 0)");
             }
         }
     }
