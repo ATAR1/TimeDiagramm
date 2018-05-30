@@ -34,7 +34,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                                 {
                                     new SolidBrush(_color),
                                     new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, _color),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.White, _color)
+                                    new HatchBrush(HatchStyle.DiagonalCross, Color.White, _color),
+                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Red, _color),
+                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Blue, _color),
                                 };
 
 
