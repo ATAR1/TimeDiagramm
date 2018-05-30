@@ -104,6 +104,7 @@
     <Compile Include="ClearLocalBDCommand.cs" />
     <Compile Include="GenerateDiagrammCommand.cs" />
     <Compile Include="LoadDataScanerCommand.cs" />
+    <Compile Include="LoadJournalCommand.cs" />
     <Compile Include="LoadMDT6DataCommand.cs" />
     <Compile Include="VM.cs" />
     <Page Include="MainWindow.xaml">
@@ -151,6 +152,10 @@
     <ProjectReference Include="..\IntervalsDBTypesLibrary\IntervalsDBTypesLibrary.csproj">
       <Project>{e3032533-d779-4c70-a0f9-3be535666557}</Project>
       <Name>IntervalsDBTypesLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JournalDbModel\JournalDbModel.csproj">
+      <Project>{2b36c29c-3bf3-4875-ac81-4c14e4381c50}</Project>
+      <Name>JournalDbModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDT6DbModel\MDT6DbModel.csproj">
       <Project>{81326393-2cd5-487d-a613-c0a8d3fc6d37}</Project>

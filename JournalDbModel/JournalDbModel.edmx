@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище JournalDbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="JournalRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Shift" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Work" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Start" Type="time" Precision="7" Nullable="false" />
+          <Property Name="End" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Employee" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="WorkArea" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DefectoscopeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="WorkArea" />
+            <PropertyRef Name="DefectoscopeName" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="WorkArea" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DefectoscopeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Work">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OperationGroup" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AvaliableOperations_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="1" />
+          <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Operation">
+              <PropertyRef Name="Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalRecord_Operation">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="1" />
+          <End Role="JournalRecord" Type="Self.JournalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="WorkArea" />
+              <PropertyRef Name="DefectoscopeName" />
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="JournalRecord">
+              <PropertyRef Name="WorkArea" />
+              <PropertyRef Name="DefectoscopeName" />
+              <PropertyRef Name="Work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище JournalDbModelContainer">
+          <EntitySet Name="JournalRecord" EntityType="Self.JournalRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AvaliableOperations_Work" Association="Self.FK_AvaliableOperations_Work">
+            <End Role="Work" EntitySet="Work" />
+            <End Role="Operation" EntitySet="Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalRecord_Operation" Association="Self.FK_JournalRecord_Operation">
+            <End Role="Operation" EntitySet="Operation" />
+            <End Role="JournalRecord" EntitySet="JournalRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JournalDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="JournalRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Shift" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Work" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Start" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="End" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Employee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WorkArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DefectoscopeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Operation" Relationship="JournalDbModel.FK_JournalRecord_Operation" FromRole="JournalRecord" ToRole="Operation" />
+        </EntityType>
+        <EntityContainer Name="JournalDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="JournalRecords" EntityType="Self.JournalRecord" />
+          <EntitySet Name="Works" EntityType="JournalDbModel.Work" />
+          <EntitySet Name="Operations" EntityType="JournalDbModel.Operation" />
+          <AssociationSet Name="FK_JournalRecord_Operation" Association="JournalDbModel.FK_JournalRecord_Operation">
+            <End Role="Operation" EntitySet="Operations" />
+            <End Role="JournalRecord" EntitySet="JournalRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliableOperations_Work" Association="JournalDbModel.FK_AvaliableOperations_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="Operation" EntitySet="Operations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Work">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OperationGroup" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="WorkArea" />
+            <PropertyRef Name="DefectoscopeName" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="WorkArea" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DefectoscopeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Work" Relationship="JournalDbModel.FK_AvaliableOperations_Work" FromRole="Operation" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_JournalRecord_Operation">
+          <End Type="JournalDbModel.Operation" Role="Operation" Multiplicity="1" />
+          <End Type="JournalDbModel.JournalRecord" Role="JournalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="WorkArea" />
+              <PropertyRef Name="DefectoscopeName" />
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="JournalRecord">
+              <PropertyRef Name="WorkArea" />
+              <PropertyRef Name="DefectoscopeName" />
+              <PropertyRef Name="Work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliableOperations_Work">
+          <End Type="JournalDbModel.Work" Role="Work" Multiplicity="1" />
+          <End Type="JournalDbModel.Operation" Role="Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Operation">
+              <PropertyRef Name="Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище JournalDbModelContainer" CdmEntityContainer="JournalDbEntities">
+          <EntitySetMapping Name="JournalRecords">
+            <EntityTypeMapping TypeName="JournalDbModel.JournalRecord">
+              <MappingFragment StoreEntitySet="JournalRecord">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="Work" ColumnName="Work" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WorkArea" ColumnName="WorkArea" />
+                <ScalarProperty Name="DefectoscopeName" ColumnName="DefectoscopeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="JournalDbModel.Work">
+              <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="OperationGroup" ColumnName="OperationGroup" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operations">
+            <EntityTypeMapping TypeName="JournalDbModel.Operation">
+              <MappingFragment StoreEntitySet="Operation">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DefectoscopeName" ColumnName="DefectoscopeName" />
+                <ScalarProperty Name="WorkArea" ColumnName="WorkArea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

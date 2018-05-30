@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="28e762d06b4444f0ac97a1c96235fb1f" Name="Diagram1" >
         <EntityTypeShape EntityType="IntervalsDBModel.Interval" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IntervalsDBModel.IntervalWithDescription" Width="1.5" PointX="3.75" PointY="4.75" />
+        <InheritanceConnector EntityType="IntervalsDBModel.IntervalWithDescription" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

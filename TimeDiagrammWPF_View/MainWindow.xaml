@@ -19,7 +19,7 @@
                 <MenuItem Header="Сбросить локальную БД" Command="{Binding ClearLocalBDCommand}"/>
                 <MenuItem Header="Загрузить данные МДТ6" Command="{Binding LoadMDT6DataCommand}"/>
                 <MenuItem Header="Загрузить данные сканер" Command="{Binding LoadDataScanerCommand}" />
-                <MenuItem Header="Загрузить данные из журнала дежурных"/>
+                <MenuItem Header="Загрузить данные из журнала дежурных" Command="{Binding LoadJournalCommand}"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">

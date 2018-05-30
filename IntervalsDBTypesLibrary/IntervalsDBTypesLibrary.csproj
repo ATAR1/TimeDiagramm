@@ -84,6 +84,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="IntervalWithDescription.cs">
+      <DependentUpon>IntervalsDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,8 +96,14 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IntervalsDB.mdf">
+    <Content Include="..\DB\IntervalsDB.mdf">
+      <Link>IntervalsDB.mdf</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DB\IntervalsDB_log.ldf">
+      <Link>IntervalsDB_log.ldf</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>IntervalsDB.mdf</DependentUpon>
     </Content>
     <Content Include="IntervalsDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -105,10 +114,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>IntervalsDBModel.edmx</DependentUpon>
       <LastGenOutput>IntervalsDBModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="IntervalsDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>IntervalsDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IntervalsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Description">
+          <Key>
+            <PropertyRef Name="IntervalId" />
+          </Key>
+          <Property Name="IntervalId" Type="int" Nullable="false" />
+          <Property Name="SpecialLevelDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="IntervalSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -15,8 +22,27 @@
           <Property Name="Duration" Type="time" Precision="0" Nullable="false" />
           <Property Name="SpecialLevel" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Description_To_Interval">
+          <End Role="IntervalSet" Type="Self.IntervalSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Description" Type="Self.Description" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="IntervalSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Description">
+              <PropertyRef Name="IntervalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="IntervalsDBModelStoreContainer">
+          <EntitySet Name="Description" EntityType="Self.Description" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IntervalSet" EntityType="Self.IntervalSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Description_To_Interval" Association="Self.FK_Description_To_Interval">
+            <End Role="IntervalSet" EntitySet="IntervalSet" />
+            <End Role="Description" EntitySet="Description" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -35,6 +61,9 @@
           <Property Name="Duration" Type="Time" Nullable="false" Precision="0" />
           <Property Name="SpecialLevel" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="IntervalWithDescription" BaseType="IntervalsDBModel.Interval" >
+          <Property Name="SpecialLevelDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42,13 +71,19 @@
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="IntervalsDBModelStoreContainer" CdmEntityContainer="IntervalsDBModelContainer">
           <EntitySetMapping Name="Intervals">
-            <EntityTypeMapping TypeName="IntervalsDBModel.Interval">
+            <EntityTypeMapping TypeName="IsTypeOf(IntervalsDBModel.Interval)">
               <MappingFragment StoreEntitySet="IntervalSet">
-                <ScalarProperty Name="Object" ColumnName="Object" />
-                <ScalarProperty Name="SpecialLevel" ColumnName="SpecialLevel" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="SpecialLevel" ColumnName="SpecialLevel" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(IntervalsDBModel.IntervalWithDescription)">
+              <MappingFragment StoreEntitySet="Description">
+                <ScalarProperty Name="Id" ColumnName="IntervalId" />
+                <ScalarProperty Name="SpecialLevelDescription" ColumnName="SpecialLevelDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

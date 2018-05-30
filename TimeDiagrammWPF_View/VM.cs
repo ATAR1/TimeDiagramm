@@ -22,7 +22,7 @@ namespace TimeDiagrammWPF_View
             GenerateDiagrammCommand = new GenerateDiagrammCommand(this);
             LoadMDT6DataCommand = new LoadMDT6DataCommand();
             LoadDataScanerCommand = new LoadDataScanerCommand();
-
+            LoadJournalCommand = new LoadJournalCommand();
         }
 
         public ICommand GenerateDiagrammCommand { get; private set; }
@@ -30,7 +30,9 @@ namespace TimeDiagrammWPF_View
 
         public ICommand LoadMDT6DataCommand { get; private set; }
 
-        public ICommand LoadDataScanerCommand { get; set; }
+        public ICommand LoadDataScanerCommand { get; private set; }
+
+        public ICommand LoadJournalCommand { get; private set; }
 
         public Stream Diagramm
         {

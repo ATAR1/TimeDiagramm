@@ -21,12 +21,19 @@ namespace TimeDiagrammWPF_View
             List<Interval> intervals = new List<Interval>();
             using (var mdt6Ctx = new MDT6DBEntities())
             {
-                var mdt6Tubes = mdt6Ctx.Tubes.Where(t => t.tCreatedDate >= new DateTime(2018,5,1)).ToList();
-                intervals.AddRange(mdt6Tubes.Select(t => new Interval() {
-                    Object = "МДТ 6",
-                    StartTime = t.tCreatedDate,
-                    SpecialLevel = String.IsNullOrWhiteSpace( t.note ) ? 0 : 1,
-                    Duration =TimeSpan.FromSeconds(  t.speedt != 0 ? (int)(t.lent * 10.0 / t.speedt) : 0)
+                var mdt6Tubes = mdt6Ctx.Tubes.Where(t => t.tCreatedDate >= new DateTime(2018,5,23)).ToList();
+                intervals.AddRange(mdt6Tubes.Select(t =>
+                {
+                    int level =0;
+                    if((!String.IsNullOrWhiteSpace(t.note)) && (t.note.Trim()=="*")) level =1;
+                    if ((!String.IsNullOrWhiteSpace(t.note))&&(t.note.Trim() != "*")) level = 2;
+                    return new Interval()
+                    {
+                        Object = "МДТ 6",
+                        StartTime = t.tCreatedDate,
+                        SpecialLevel = level,
+                        Duration = TimeSpan.FromSeconds(t.speedt != 0 ? (int)(t.lent * 10.0 / t.speedt) : 0)
+                    };
                 }));
             }
 

@@ -35,12 +35,14 @@ namespace TimeDiagrammWPF_View
             var list = ctx.Intervals.Where(i => i.Object == "МДТ 6").ToList();
             var list2 = ctx.Intervals.Where(i => i.Object == "Сканер").ToList();
             var list3 = ctx.Intervals.Where(i => i.Object == "УНСК.ТО1.МДТ 6").ToList();
+            var list4 = ctx.Intervals.Where(i => i.Object == "УНСК.ТО1.Сканер").ToList();
             var dateTimeBegin = DateBegin ;
             var dateTimeEnd = DateEnd;
             var diagrams = new SplittedGanttChartModel(dateTimeBegin, dateTimeEnd);
             diagrams.AddGraph("МДТ 6", list.Select(i => new IntervalDefectoscope() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime, Speed = 211, EstimatedSpeed = 60 }).ToArray());
             diagrams.AddGraph("Сканер", list2.Select(i => new Interval() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime }).ToArray());
             diagrams.AddGraph("УНСК.ТО1.МДТ 6", list3.Select(i => new Interval() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime }).ToArray());
+            diagrams.AddGraph("УНСК.ТО1.Сканер", list4.Select(i => new Interval() { Duration = i.Duration, Level = i.SpecialLevel, StartTime = i.StartTime }).ToArray());
 
             //var diagramm = new TimeDiagramGenerator(new SplittedGanttChartModel(diagrams)).GenerateDiagramm();
             var diagramm = new GanttChartGenerator(diagrams).Draw();

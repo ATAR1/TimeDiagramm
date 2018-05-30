@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDT6DbModel", "MDT6DbModel\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanerTubeInfoDbModel", "ScanerTubeInfoDbModel\ScanerTubeInfoDbModel.csproj", "{630FBDD1-A425-4E14-B882-0C0C855E5215}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JournalDbModel", "JournalDbModel\JournalDbModel.csproj", "{2B36C29C-3BF3-4875-AC81-4C14E4381C50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{630FBDD1-A425-4E14-B882-0C0C855E5215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{630FBDD1-A425-4E14-B882-0C0C855E5215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{630FBDD1-A425-4E14-B882-0C0C855E5215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B36C29C-3BF3-4875-AC81-4C14E4381C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B36C29C-3BF3-4875-AC81-4C14E4381C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B36C29C-3BF3-4875-AC81-4C14E4381C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B36C29C-3BF3-4875-AC81-4C14E4381C50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
