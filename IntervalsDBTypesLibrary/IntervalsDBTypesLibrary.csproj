@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IIntervalsRepository.cs" />
     <Compile Include="Interval.cs">
       <DependentUpon>IntervalsDBModel.tt</DependentUpon>
     </Compile>
@@ -84,6 +85,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="IntervalsRepository.cs" />
     <Compile Include="IntervalWithDescription.cs">
       <DependentUpon>IntervalsDBModel.tt</DependentUpon>
     </Compile>
