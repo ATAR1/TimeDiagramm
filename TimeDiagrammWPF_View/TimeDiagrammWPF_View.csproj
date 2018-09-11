@@ -103,8 +103,9 @@
     </ApplicationDefinition>
     <Compile Include="ClearLocalBDCommand.cs" />
     <Compile Include="GenerateDiagrammCommand.cs" />
+    <Compile Include="IDateTimeInterval.cs" />
+    <Compile Include="LoadDataCommand.cs" />
     <Compile Include="LoadDataScanerCommand.cs" />
-    <Compile Include="LoadJournalCommand.cs" />
     <Compile Include="LoadMDT6DataCommand.cs" />
     <Compile Include="VM.cs" />
     <Page Include="MainWindow.xaml">

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using JournalDbModel;
+using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Windows.Input;
-using TimeDiagrammGeneratorLibrary;
-using TimeDiagrammGeneratorLibrary.GraphicObjects;
 
 namespace TimeDiagrammWPF_View
 {
-    internal class VM:INotifyPropertyChanged
+    internal class VM:INotifyPropertyChanged,IDateTimeInterval
     {
         private Stream diagramm1;
         private Stream diagramm2;
@@ -22,7 +17,7 @@ namespace TimeDiagrammWPF_View
             GenerateDiagrammCommand = new GenerateDiagrammCommand(this);
             LoadMDT6DataCommand = new LoadMDT6DataCommand();
             LoadDataScanerCommand = new LoadDataScanerCommand();
-            LoadJournalCommand = new LoadJournalCommand();
+            LoadJournalCommand = new LoadDataCommand("Загрузить данные из журнала дежурных", new TestAndTunesUptimesRepository(), this);
         }
 
         public ICommand GenerateDiagrammCommand { get; private set; }
@@ -81,6 +76,10 @@ namespace TimeDiagrammWPF_View
                 }
             }
         }
+
+        public DateTime BeginTime{get; set;}
+
+        public DateTime EndTime{get; set;}
 
         public event PropertyChangedEventHandler PropertyChanged;
 
