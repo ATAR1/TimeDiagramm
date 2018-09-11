@@ -27,6 +27,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                 _chart.AddElement(captionY);
                 gantChartArea.GraphCount = model.Graphs.Count;
                 gantChartArea.StartHour = chartString.StartChartTime.Hour;
+                //todo тут нужно переделать
                 foreach (var graph in chartString.Graphs)
                 {
                     foreach (var interval in graph.Intervals)
@@ -35,15 +36,22 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                         switch (graph.Name)
                         {
                             case "МДТ 6":
+                            case "МДТ 6.1":
+                            case "МДТ 6.2":
                                 color = Color.Green;
                                 break;
-                            case "Сканер":
+                            case "Сканер ТО1":
+                            case "Сканер ТО2":
                                 color = Color.Blue;
                                 break;
                             case "УНСК.ТО1.МДТ 6":
+                            case "УНСК.ТО1.МДТ 6.1":
+                            case "УНСК.ТО2.МДТ 6.2":
                                 color = Color.LightGreen;
                                 break;
                             case "УНСК.ТО1.Сканер":
+                            case "УНСК.ТО1.Сканер ТО1":
+                            case "УНСК.ТО2.Сканер":
                                 color = Color.LightBlue;
                                 break;
                             default:

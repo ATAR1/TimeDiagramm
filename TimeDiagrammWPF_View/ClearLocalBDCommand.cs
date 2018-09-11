@@ -8,6 +8,8 @@ namespace TimeDiagrammWPF_View
     {
         public event EventHandler CanExecuteChanged;
 
+        public string DisplayName => "Очистить локалную БД";
+
         public bool CanExecute(object parameter)
         {
             return true;

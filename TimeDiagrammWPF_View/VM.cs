@@ -1,6 +1,11 @@
 ﻿using JournalDbModel;
+using MDT6DbModel;
+using ScanerTubeInfoDbModel;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Windows.Input;
 
@@ -11,23 +16,35 @@ namespace TimeDiagrammWPF_View
         private Stream diagramm1;
         private Stream diagramm2;
         private Stream diagramm3;
+
+        private IEnumerable<ICommand> _menuItems;
         public VM()
         {
-            ClearLocalBDCommand = new ClearLocalBDCommand();
             GenerateDiagrammCommand = new GenerateDiagrammCommand(this);
-            LoadMDT6DataCommand = new LoadMDT6DataCommand();
-            LoadDataScanerCommand = new LoadDataScanerCommand();
-            LoadJournalCommand = new LoadDataCommand("Загрузить данные из журнала дежурных", new TestAndTunesUptimesRepository(), this);
+            CopyToClipBoardCommand = new CopyToClipBoardCommand(this);
+            _menuItems = new List<ICommand>
+            {
+                new ClearLocalBDCommand(),
+                new LoadDataCommand("Загрузить данные МДТ 6", new MDT6IntervalsSource("МДТ 6"), this),
+                new LoadDataCommand("Загрузить данные МДТ 6.1", new MDT6IntervalsSource("МДТ 6.1"), this),
+                new LoadDataCommand("Загрузить данные сканера ТО1", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО1"), this),
+
+                new LoadDataCommand("Загрузить данные из журнала дежурных", new TestAndTunesUptimesRepository(), this),
+                new LoadDataCommand("Загрузить данные МДТ 6.2", new MDT6IntervalsSource("МДТ 6.2"), this),
+                new LoadDataCommand("Загрузить данные сканера ТО2", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО2"), this),
+
+            };
         }
 
+        public IEnumerable<ICommand> MenuItems => _menuItems;
+
         public ICommand GenerateDiagrammCommand { get; private set; }
-        public ICommand ClearLocalBDCommand { get; private set; }
 
-        public ICommand LoadMDT6DataCommand { get; private set; }
+        public ICommand CopyToClipBoardCommand { get; private set; }
 
-        public ICommand LoadDataScanerCommand { get; private set; }
-
-        public ICommand LoadJournalCommand { get; private set; }
+        public Bitmap Bitmap1 { get; set; }
+        public Bitmap Bitmap2 { get; set; }
+        public Bitmap Bitmap3 { get; set; }
 
         public Stream Diagramm
         {
@@ -77,9 +94,9 @@ namespace TimeDiagrammWPF_View
             }
         }
 
-        public DateTime BeginTime{get; set;}
+        public DateTime BeginTime { get; set; } = new DateTime(2018, 9, 1);
 
-        public DateTime EndTime{get; set;}
+        public DateTime EndTime { get; set; } = DateTime.Now;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -14,16 +14,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Сформировать диаграмму" Command="{Binding GenerateDiagrammCommand}"/>
-            <MenuItem Header="Данные">
-                <MenuItem Header="Сбросить локальную БД" Command="{Binding ClearLocalBDCommand}"/>
-                <MenuItem Header="Загрузить данные МДТ6" Command="{Binding LoadMDT6DataCommand}"/>
-                <MenuItem Header="Загрузить данные сканер" Command="{Binding LoadDataScanerCommand}" />
-                <MenuItem Header="Загрузить данные из журнала дежурных" Command="{Binding LoadJournalCommand}"/>
+            <MenuItem Header="Сформировать диаграмму" Command="{Binding GenerateDiagrammCommand}"/>            
+            <MenuItem Header="Данные" ItemsSource="{Binding MenuItems}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Command" Value="{Binding}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+                <MenuItem.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName}"/>
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
             </MenuItem>
+            <MenuItem Header="Скопировать в буфер" Command="{Binding CopyToClipBoardCommand}"/>
+
+
         </Menu>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
@@ -34,8 +45,10 @@
             <DatePicker Grid.Column="0" MinWidth="100"  SelectedDate="{Binding GenerateDiagrammCommand.DateBegin}"/>
             <xctk:TimePicker Grid.Column="1" MinWidth="100" Value="{Binding GenerateDiagrammCommand.DateBegin}"/>
             <DatePicker Grid.Column="2" MinWidth="100"  SelectedDate="{Binding GenerateDiagrammCommand.DateEnd}"/>
-            <xctk:TimePicker Grid.Column="3" MinWidth="100" Value="{Binding GenerateDiagrammCommand.DateEnd}"/>
-            <Button Content="Диаграмма" Grid.Column="4" Command="{Binding GenerateDiagrammCommand}"/>
+            <xctk:TimePicker Grid.Column="3" MinWidth="100"  Value="{Binding GenerateDiagrammCommand.DateEnd}"/>
+            <RadioButton VerticalAlignment="Center"  Grid.Column="4" Content="ТО 1" IsChecked="{Binding GenerateDiagrammCommand.TO1Diagramm}"/>
+            <RadioButton VerticalAlignment="Center"  Grid.Column="5" Content="ТО 2" IsChecked="{Binding GenerateDiagrammCommand.TO2Diagramm}"/>
+            <Button Content="Диаграмма" Grid.Column="6" Command="{Binding GenerateDiagrammCommand}"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Background="White" Grid.Row="2">
             <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Diagramm}" Stretch="None"/>
