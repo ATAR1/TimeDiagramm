@@ -5,16 +5,15 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class IntervalG : VisibleChartObject
     {
-        public IntervalG(TimeChartArea owner, Color color, int startX, int stopX, int graphNum)
+        public IntervalG(TimeChartArea owner, Color color, int startX, int stopX, int graphNum, int level)
         {
             Owner = owner;
             _startTime = startX;
             _stopTime = stopX;
             _graphNum = graphNum;
             _color = color;
+            Level = level;
         }
-
-        private Pen pen => new Pen(_color);
 
         public int Y => Owner.Bottom - Owner.Height / (Owner.GraphCount + 1) * (_graphNum + 1);
 
@@ -23,7 +22,10 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         private int EndX => Owner.Left + (int)(((TimeChartArea)Owner).PixelPerSecond * _stopTime);
 
         public int BrickHeight {get;set;}= 10;
-        public int Level { get; set; }
+
+        public int Level { get; private set; }
+
+        public Pen BorderPen { get; set; } = new Pen(Color.Black);
 
         private int _graphNum;
         private int _startTime;
@@ -42,8 +44,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public override void Draw(Graphics gr)
         {
-            gr.FillRectangle(_brushes[Level], StartX, Y, EndX - StartX, 10);
-            gr.DrawRectangle(new Pen(Color.Black), StartX, Y, EndX-StartX, 10);            
+            var brickLength = EndX - StartX;
+            gr.FillRectangle(_brushes[Level], StartX, Y, brickLength, BrickHeight);            
+            gr.DrawRectangle(BorderPen, StartX, Y, brickLength, BrickHeight);            
         }
 
 
