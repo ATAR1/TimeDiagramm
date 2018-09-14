@@ -57,7 +57,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                             default:
                                 break;
                         }
-                        _chart.AddElement(new IntervalG(gantChartArea, color, chartString.GetStartCoord(interval), chartString.GetEndCoord(interval), graph.Num) { Level = interval.Level });
+                        _chart.AddElement(new IntervalG(gantChartArea, color, chartString.GetStartCoord(interval), chartString.GetEndCoord(interval), graph.Num, interval.Level));
                     }
                 }
             }
