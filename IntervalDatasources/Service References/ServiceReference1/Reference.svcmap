@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="341c880b-4608-4aca-8697-dea7e6955478" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://scanerto2:8080" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="80acf9b2-1609-46ed-b8db-3af1dfe7100c" SourceId="1" SourceUrl="http://scanerto2:8080/?xsd=xsd1" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="a5b7b5fe-f990-4843-a8a8-19b97ca61c14" SourceId="1" SourceUrl="http://scanerto2:8080/?xsd=xsd0" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="a25ef58d-a3d0-43f8-8e99-2f094ca6a4f8" SourceId="1" SourceUrl="http://scanerto2:8080/?xsd=xsd2" />
+    <MetadataFile FileName="DataSourceService.wsdl" MetadataType="Wsdl" ID="6a41be98-8b0f-4c98-ba6d-6b9c2c031650" SourceId="1" SourceUrl="http://scanerto2:8080/?wsdl" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="058237d5-80fd-42be-b272-e7f30f86ae5c" SourceId="1" SourceUrl="http://scanerto2:8080/?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
