@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -41,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarChart.cs" />
     <Compile Include="BarChartGenerator.cs" />
     <Compile Include="GraphicObjects\AuxiliaryLine.cs" />
     <Compile Include="GraphicObjects\AxisX.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="Interval.cs" />
     <Compile Include="GanttChartGenerator.cs" />
     <Compile Include="IntervalDefectoscope.cs" />
+    <Compile Include="IScale.cs" />
+    <Compile Include="Scale.cs" />
     <Compile Include="SplittedGanttChartModel.cs" />
     <Compile Include="TimeDiagramGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

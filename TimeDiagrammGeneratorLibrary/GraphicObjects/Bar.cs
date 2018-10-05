@@ -11,18 +11,25 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
     public class Bar : VisibleChartObject
     {
         private Color _color = Color.Green;
+        private IScale _scale;
 
-        public Bar(ChartArea owner)
+        public Bar(ChartArea owner,IScale scale)
         {
             Owner = owner;
+            _scale = scale;
         }
+        
+        public int Width { get; set; } = 10;
 
-        public int A => Values.Sum();
+        public int Bottom => Owner.Bottom - Margin;//todo
 
-        public int A1 => Values[0];
+        public float Top => Bottom-Width;
 
-        public float Top => Owner.Bottom - 25;
+        public int Right => Values.Sum()*_scale.ValueOfDivision+Owner.Left;
+
         public int[] Values { get; set; }
+
+        public int Margin { get; private set; } = 10;
 
         Brush[] Brushes => new Brush[]
                                 {
@@ -32,14 +39,16 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                                     new HatchBrush(HatchStyle.DiagonalCross, Color.Red, _color),
                                     new HatchBrush(HatchStyle.DiagonalCross, Color.Blue, _color),
                                 };
+
+        
         public override void Draw(Graphics gr)
         {
             var left = Owner.Left;
             for (int i = 0; i < Values.Length; i++)
             {
-                var value = Values[i] * 3;
-                gr.FillRectangle(Brushes[i], left, Owner.Bottom - 15, value, 10);
-                gr.DrawRectangle(new Pen(Color.Black), left, Owner.Bottom - 15, value, 10);
+                var value = Values[i] * _scale.ValueOfDivision;
+                gr.FillRectangle(Brushes[i], left, Top, value, Width);
+                gr.DrawRectangle(new Pen(Color.Black), left, Top, value, Width);
                 left += value;
             }
         }

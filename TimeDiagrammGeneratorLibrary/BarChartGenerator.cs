@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Linq;
 using TimeDiagrammGeneratorLibrary.GraphicObjects;
 
@@ -21,8 +22,8 @@ namespace TimeDiagrammGeneratorLibrary
                 var captionY = new CaptionY(chartString) { Caption = chartStringModel.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
                 var en = model.Graphs.First().Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
-                var bar = new Bar(chartString)
-                {                    
+                var bar = new Bar(chartString, new Scale(70,3))
+                {
                     Values = new int[]
                     {
                         en.Where(i => i.Level == 0).Count()
@@ -30,12 +31,12 @@ namespace TimeDiagrammGeneratorLibrary
                         ,en.Where(i => i.Level == 2).Count()
                     }
                 };
-                var barCaption = new BarCaption(chartString ,bar);
+                var barCaption = new BarCaption(chartString ,bar, bar.Values[0].ToString() + '/' + bar.Values.Sum().ToString());
                 _chart.AddElement(bar);
                 _chart.AddElement(barCaption);
             }
 
-        }
+        }        
 
         public Bitmap Draw()
         {

@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class BarCaption : VisibleChartObject
     {
         private Bar _bar;
+        private string _text;
 
-        public BarCaption(ChartArea owner,Bar bar)
+        public BarCaption(ChartArea owner,Bar bar, string text)
         {
             this._bar = bar;
             Owner = owner;
+            _text = text;
         }
+
+        public Font Font { get; set; } = new Font(FontFamily.GenericSansSerif, 10);
 
         public override void Draw(Graphics gr)
         {
-            gr.DrawString(_bar.A1.ToString()+'/'+ _bar.A.ToString(), new Font(FontFamily.GenericSansSerif, 10), Brushes.Black, Owner.Left+_bar.A*3, _bar.Top-4);
+            var h= Font.GetHeight(gr);
+            gr.DrawString(_text,Font, Brushes.Black, _bar.Right, _bar.Top-h);
         }
     }
 }
