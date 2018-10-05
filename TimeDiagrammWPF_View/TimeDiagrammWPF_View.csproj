@@ -151,6 +151,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IntervalDatasources\IntervalDatasources.csproj">
+      <Project>{9E28A9E5-8A82-4A19-912D-8ADE42DAD826}</Project>
+      <Name>IntervalDatasources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IntervalsDBTypesLibrary\IntervalsDBTypesLibrary.csproj">
       <Project>{e3032533-d779-4c70-a0f9-3be535666557}</Project>
       <Name>IntervalsDBTypesLibrary</Name>

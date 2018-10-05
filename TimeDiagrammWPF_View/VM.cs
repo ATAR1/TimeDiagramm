@@ -1,4 +1,5 @@
-﻿using JournalDbModel;
+﻿using IntervalDatasources;
+using JournalDbModel;
 using MDT6DbModel;
 using ScanerTubeInfoDbModel;
 using System;
@@ -31,8 +32,8 @@ namespace TimeDiagrammWPF_View
 
                 new LoadDataCommand("Загрузить данные из журнала дежурных", new TestAndTunesUptimesRepository(), this),
                 new LoadDataCommand("Загрузить данные МДТ 6.2", new MDT6IntervalsSource("МДТ 6.2"), this),
-                new LoadDataCommand("Загрузить данные сканера ТО2", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО2"), this),
-
+                new LoadDataCommand("Загрузить данные сканера ТО2 из файла", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО2"), this),
+                new LoadDataCommand("Загрузить данные сканера ТО2 из службы", new ScanerWcfClientDatasource("Сканер ТО2"), this),
             };
         }
 
