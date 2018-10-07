@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using TimeDiagrammGeneratorLibrary.GraphicObjects;
 
 namespace TimeDiagrammGeneratorLibrary
@@ -15,19 +10,25 @@ namespace TimeDiagrammGeneratorLibrary
         {
             AddElement(new BottomBorder(InnerArea));
             AddElement(new LeftBorder(InnerArea));
-            
+            _top = InnerArea.Bottom;
             
         }
 
         public void AddBar(int[] values)
         {
-            var bar = new Bar(InnerArea, this) { Values = values, Width = 40 };
+            var bar = new Bar(InnerArea, this, _top, _level++) { Values = values, BarHeight = 40 };
             AddElement(bar);
             var barCaption = new BarCaption(InnerArea, bar, bar.Values[0].ToString() + '/' + bar.Values.Sum().ToString());
-            barCaption.Font = new Font(FontFamily.GenericSansSerif, 30);
+            barCaption.Font = new Font(FontFamily.GenericSansSerif, 20);
             AddElement(barCaption);
+            _top -= (bar.Height+ barCaption.Height);//todo
         }
 
+        int _top;
+
+        int _level = 0;
+
+        
         public int MaxValue { get; set; } = 100;
 
         public int ValueOfDivision => Width / MaxValue;
