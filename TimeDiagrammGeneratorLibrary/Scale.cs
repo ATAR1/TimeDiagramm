@@ -2,13 +2,15 @@
 {
     public class Scale : IScale
     {
-        public Scale(int maxValue, int valueOfDvision)
-        {
-            MaxValue = maxValue;
-            ValueOfDivision = valueOfDvision;
-        }
-        public int MaxValue { get;  }
+        private float _width;
 
-        public int ValueOfDivision { get; }
+        public Scale(int size, float width)
+        {
+            Size = size;
+            _width = width;
+        }
+        public int Size { get; set; }
+
+        public float DotsPerDivision => _width / Size;
     }
 }

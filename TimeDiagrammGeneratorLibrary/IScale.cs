@@ -2,7 +2,7 @@
 {
     public interface IScale
     {
-        int MaxValue { get; }
-        int ValueOfDivision { get; }
+        int Size { get; }
+        float DotsPerDivision { get; }
     }
 }
