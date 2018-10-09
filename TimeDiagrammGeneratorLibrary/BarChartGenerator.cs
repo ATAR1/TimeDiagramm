@@ -22,14 +22,16 @@ namespace TimeDiagrammGeneratorLibrary
                 var captionY = new CaptionY(chartString) { Caption = chartStringModel.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
                 var en = model.Graphs.First().Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
-                var bar = new Bar(chartString, new Scale(70,3),chartString.Bottom, 0)
+                var bar = new Bar(chartString, new GraphParameters(0))
                 {
-                    Values = new int[]
+                    Values = new float[]
                     {
                         en.Where(i => i.Level == 0).Count()
                         ,en.Where(i=>i.Level==1).Count()
                         ,en.Where(i => i.Level == 2).Count()
-                    }
+                    },
+                    Bottom = chartString.Bottom,
+                    Scale = new Scale(70, 3)
                 };
                 var barCaption = new BarCaption(chartString ,bar, bar.Values[0].ToString() + '/' + bar.Values.Sum().ToString());
                 _chart.AddElement(bar);

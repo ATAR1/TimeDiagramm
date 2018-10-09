@@ -31,8 +31,7 @@ namespace Diagrams.WpfView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             BarChart barChart = new BarChart(500, 500, 5);
-            barChart.AddBar(new[] { 10, 20, 5 });
-            barChart.AddBar(new[] { 10, 3, 8 });
+            barChart.SetData(new float[][]{ new[]{ 10f, 20, 5 }, new[]{ 10f, 3, 8 } });
             using (MemoryStream ms = new MemoryStream())
             {
                 barChart.Draw().Save(ms,ImageFormat.Bmp);

@@ -11,29 +11,28 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
     public class Bar : VisibleChartObject
     {
         private int _diagramNum;
-        private IScale _scale;
 
-        public Bar(ChartArea owner,IScale scale, int bottom, int diagramNum)
+        private GraphParameters _parameters;
+
+        public Bar(ChartArea owner, GraphParameters parameters)
         {
             Owner = owner;
-            _scale = scale;
-            Bottom = bottom - Margin;
-            _diagramNum = diagramNum;
+            _diagramNum = parameters.GraphNum;
+            _parameters = parameters;
         }
-        
-        public int BarHeight { get; set; } = 10;
+
+
+        public IScale Scale { get; set; }
 
         public int Bottom { get; set; }
 
-        public float Top => Bottom-BarHeight;
+        public int Top => Bottom - Height;
 
-        public int Right => Values.Sum()*_scale.ValueOfDivision+Owner.Left;
+        public int Right => (int)Math.Ceiling(Values.Sum()*Scale.DotsPerDivision+Owner.Left);
 
-        public int[] Values { get; set; }
+        public float[] Values { get; set; }
 
-        public int Margin { get; private set; } = 5;
-
-        Brush[] Brushes => new Brush[]
+        Brush[] Brushes => new Brush[]//
                                 {
                                     new SolidBrush(_colors[_diagramNum]),
                                     new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, _colors[_diagramNum]),
@@ -42,7 +41,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                                     new HatchBrush(HatchStyle.DiagonalCross, Color.Blue, _colors[_diagramNum]),
                                 };
 
-        public int Height => BarHeight + Margin * 2;
+        public int Height => _parameters.BarHeight + _parameters.BarMargin * 2;
 
         Color[] _colors = new[]
         {
@@ -51,17 +50,19 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             Color.LightGreen,
             Color.LightBlue
         };
-
+        
 
         public override void Draw(Graphics gr)
         {
-            var left = Owner.Left;
+            var left = (float)Owner.Left;
+            float barHeight = _parameters.BarHeight;
+            float barTop = Bottom - _parameters.BarHeight - _parameters.BarMargin;
             for (int i = 0; i < Values.Length; i++)
             {
-                var value = Values[i] * _scale.ValueOfDivision;
-                gr.FillRectangle(Brushes[i], left, Top, value, BarHeight);
-                gr.DrawRectangle(new Pen(Color.Black), left, Top, value, BarHeight);
-                left += value;
+                var barWidth = Values[i] * Scale.DotsPerDivision;                
+                gr.FillRectangle(Brushes[i], left, barTop, barWidth, barHeight);
+                gr.DrawRectangle(new Pen(Color.Black), left, barTop, barWidth, barHeight);
+                left += barWidth;
             }
         }
     }

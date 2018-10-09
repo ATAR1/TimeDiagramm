@@ -57,6 +57,7 @@
     <Compile Include="GraphicObjects\ChartAreaSplitted.cs" />
     <Compile Include="GraphicObjects\ChartObject.cs" />
     <Compile Include="GraphicObjects\Brick.cs" />
+    <Compile Include="GraphicObjects\GraphParameters.cs" />
     <Compile Include="GraphicObjects\TimeChartArea.cs" />
     <Compile Include="GraphicObjects\HistogramPoint.cs" />
     <Compile Include="GraphicObjects\IntervalG.cs" />
