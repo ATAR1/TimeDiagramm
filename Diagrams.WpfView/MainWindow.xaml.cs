@@ -31,7 +31,38 @@ namespace Diagrams.WpfView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             BarChart barChart = new BarChart(500, 500, 5);
-            barChart.SetData(new float[][]{ new[]{ 10f, 20, 5 }, new[]{ 10f, 3, 8 } });
+            var barChartData = new BarChartData()
+            {
+                Bars = new[] {
+                    new BarData()
+                    {
+                        BarNum = 0,
+                        Name = "МДТ6",
+                        Sections = new[]
+                        {
+                            new BarSectionData() { Name = "Прошло труб", SectionNum = 0, Value = 10 },
+                            new BarSectionData() { Name = "Повторы", SectionNum = 1, Value = 20 },
+                            new BarSectionData() { Name = "Образцы", SectionNum = 2, Value = 5 },
+                        },
+                        CaptionText = "10/35"
+                    },
+                    new BarData()
+                    {
+                        BarNum = 1,
+                        Name = "Сканер",
+                        Sections = new[]
+                        {
+                            new BarSectionData() { Name = "Прошло труб", SectionNum = 0, Value = 10 },
+                            new BarSectionData() { Name = "Повторы", SectionNum = 1, Value = 3 },
+                            new BarSectionData() { Name = "Образцы", SectionNum = 2, Value = 8 },
+                        },
+                        CaptionText = "10/22"
+                    },
+                }
+            };
+
+            barChart.SetData(barChartData);
+            //barChart.SetData(new float[][]{ new[]{ 10f, 20, 5 }, new[]{ 10f, 3, 8 } });
             using (MemoryStream ms = new MemoryStream())
             {
                 barChart.Draw().Save(ms,ImageFormat.Bmp);

@@ -8,21 +8,22 @@
 
         public int StringCount { get; private set; } = 0;
 
-        public ChartArea CreateString()
+        public ChartArea CreateString(int stringHeight)
         {
-            var stringArea = new StringArea(this, StringCount++);
+            var stringArea = new StringArea(this, StringCount++, stringHeight);
             return stringArea;
         }
 
         class StringArea : ChartArea
         {
-            public StringArea(ChartAreaSplitted owner, int num):base(owner) 
+            public StringArea(ChartAreaSplitted owner, int num, int height):base(owner) 
             {
                 Num = num;
+                Height = height;
             }
             public int Num { get; private set; }
 
-            public override int Height => Owner.Height / ((ChartAreaSplitted)Owner).StringCount;
+            public override int Height { get; }
 
             public override int Top => Bottom - Height;
 

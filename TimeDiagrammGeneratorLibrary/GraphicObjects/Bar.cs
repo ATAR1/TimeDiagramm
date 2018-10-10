@@ -28,9 +28,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public int Top => Bottom - Height;
 
-        public int Right => (int)Math.Ceiling(Values.Sum()*Scale.DotsPerDivision+Owner.Left);
-
-        public float[] Values { get; set; }
+        public int Right => (int)Math.Ceiling(Sections.Sum(s=>s.Value)*Scale.DotsPerDivision+Owner.Left);        
 
         Brush[] Brushes => new Brush[]//
                                 {
@@ -42,6 +40,8 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
                                 };
 
         public int Height => _parameters.BarHeight + _parameters.BarMargin * 2;
+
+        public BarSectionData[] Sections { get; set; }
 
         Color[] _colors = new[]
         {
@@ -57,9 +57,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             var left = (float)Owner.Left;
             float barHeight = _parameters.BarHeight;
             float barTop = Bottom - _parameters.BarHeight - _parameters.BarMargin;
-            for (int i = 0; i < Values.Length; i++)
+            for (int i = 0; i < Sections.Length; i++)
             {
-                var barWidth = Values[i] * Scale.DotsPerDivision;                
+                var barWidth = Sections[i].Value * Scale.DotsPerDivision;                
                 gr.FillRectangle(Brushes[i], left, barTop, barWidth, barHeight);
                 gr.DrawRectangle(new Pen(Color.Black), left, barTop, barWidth, barHeight);
                 left += barWidth;

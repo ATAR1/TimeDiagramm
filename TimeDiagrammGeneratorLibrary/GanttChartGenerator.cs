@@ -20,7 +20,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             _chart.AddElements(axisX_Marks.Where((e,c)=>c%2==0).Select(m => new AuxiliaryLine(_chart.InnerArea,axisX, m.X)));      
             foreach (var chartString in model.ChartStrings)
             {
-                var chartString1 =chartAreaSplitted.CreateString();                
+                var chartString1 =chartAreaSplitted.CreateString(chartAreaSplitted.Height / model.ChartStrings.Count);                
                 var gantChartArea = new TimeChartArea(chartString1);
                 var captionY = new CaptionY(gantChartArea) { Caption = chartString.StartChartTime.Hour+" час."};
                 _chart.AddElement(new BottomBorder(chartString1));

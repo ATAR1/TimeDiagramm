@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarChart.cs" />
+    <Compile Include="BarChartDataModel.cs" />
     <Compile Include="BarChartGenerator.cs" />
     <Compile Include="GraphicObjects\AuxiliaryLine.cs" />
     <Compile Include="GraphicObjects\AxisX.cs" />

@@ -21,7 +21,7 @@ namespace TimeDiagrammGeneratorLibrary
             Interval oldInterval = null;
             foreach (var chartString in model.ChartStrings)
             {
-                var chartString1 = chartAreaSplitted.CreateString();
+                var chartString1 = chartAreaSplitted.CreateString(chartAreaSplitted.Height/model.ChartStrings.Count);
                 _chart.AddElement(new BottomBorder(chartString1));
                 var timeChartArea = new TimeChartArea(chartString1);
                 var captionY = new CaptionY(chartString1) { Caption = chartString.StartChartTime.Hour + " час." };

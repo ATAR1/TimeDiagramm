@@ -27,7 +27,12 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         internal void AddElement(VisibleChartObject element)
         {
-            AddChild(element);
+            _children.Add(element);
+        }
+
+        public void RemoveElement(VisibleChartObject element)
+        {
+            _children.Remove(element);
         }
 
 
@@ -42,12 +47,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             {
                 item.Draw(gr);
             }
-        }
-
-        protected void AddChild(VisibleChartObject child)
-        {
-            _children.Add(child);
-        }
+        }        
 
         public int Margin { get; private set; }
         public override int Left => 0;
