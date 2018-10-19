@@ -95,7 +95,7 @@ namespace TimeDiagrammWPF_View
             }
         }
 
-        public DateTime BeginTime { get; set; } = new DateTime(2018, 9, 1);
+        public DateTime BeginTime { get; set; } = new DateTime(2018, 10, 1);
 
         public DateTime EndTime { get; set; } = DateTime.Now;
 

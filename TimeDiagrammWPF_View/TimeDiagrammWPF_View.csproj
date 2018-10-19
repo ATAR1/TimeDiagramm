@@ -107,7 +107,6 @@
     <Compile Include="GenerateDiagrammCommand.cs" />
     <Compile Include="IDateTimeInterval.cs" />
     <Compile Include="LoadDataCommand.cs" />
-    <Compile Include="LoadMDT6DataCommand.cs" />
     <Compile Include="VM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
