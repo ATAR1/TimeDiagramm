@@ -62,7 +62,6 @@ namespace Diagrams.WpfView
             };
 
             barChart.SetData(barChartData);
-            //barChart.SetData(new float[][]{ new[]{ 10f, 20, 5 }, new[]{ 10f, 3, 8 } });
             using (MemoryStream ms = new MemoryStream())
             {
                 barChart.Draw().Save(ms,ImageFormat.Bmp);
