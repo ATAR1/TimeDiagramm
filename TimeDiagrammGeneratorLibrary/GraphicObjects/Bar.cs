@@ -14,11 +14,12 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         private GraphParameters _parameters;
 
-        public Bar(ChartArea owner, GraphParameters parameters)
+        public Bar(ChartArea owner, GraphParameters parameters, IScale scale)
         {
             Owner = owner;
             _diagramNum = parameters.GraphNum;
             _parameters = parameters;
+            Scale = scale;
         }
 
 

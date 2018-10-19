@@ -22,7 +22,7 @@ namespace TimeDiagrammGeneratorLibrary
                 var captionY = new CaptionY(chartString) { Caption = chartStringModel.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
                 var en = model.Graphs.First().Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
-                var bar = new Bar(chartString, new GraphParameters(0))
+                var bar = new Bar(chartString, new GraphParameters(0), new Scale(70, chartString.Width))
                 {
                     Sections = new[]
                     {
@@ -31,7 +31,6 @@ namespace TimeDiagrammGeneratorLibrary
                         new BarSectionData() { Name = "Повторов", SectionNum = 2, Value = en.Where(i => i.Level == 2).Count() }
                     },
                     Bottom = chartString.Bottom,
-                    Scale = new Scale(70, chartString.Width)
                 };
                 var barCaption = new BarCaption(chartString ,bar, bar.Sections[0].Value.ToString() + '/' + bar.Sections.Sum(s=>s.Value).ToString());
                 _chart.AddElement(bar);

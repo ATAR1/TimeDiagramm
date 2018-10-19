@@ -74,7 +74,7 @@ namespace TimeDiagrammGeneratorLibrary
 
         private void AddBar(BarData barData)
         {
-            var bar = new Bar(InnerArea, new GraphParameters(barData.BarNum) { BarHeight = 40 }) { Scale = Scale, Sections = barData.Sections, Bottom = _top };
+            var bar = new Bar(InnerArea, new GraphParameters(barData.BarNum) { BarHeight = 40 }, Scale) {  Sections = barData.Sections, Bottom = _top };
             AddElement(bar);
             ((List<Bar>)Bars).Add(bar);
             var barCaption = new BarCaption(InnerArea, bar, barData.CaptionText);
