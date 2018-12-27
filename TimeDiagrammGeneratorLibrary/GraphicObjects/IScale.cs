@@ -1,4 +1,4 @@
-﻿namespace TimeDiagrammGeneratorLibrary
+﻿namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public interface IScale
     {

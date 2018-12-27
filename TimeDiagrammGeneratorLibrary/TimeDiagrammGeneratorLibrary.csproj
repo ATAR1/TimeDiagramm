@@ -71,8 +71,8 @@
     <Compile Include="Interval.cs" />
     <Compile Include="GanttChartGenerator.cs" />
     <Compile Include="IntervalDefectoscope.cs" />
-    <Compile Include="IScale.cs" />
-    <Compile Include="Scale.cs" />
+    <Compile Include="GraphicObjects\IScale.cs" />
+    <Compile Include="GraphicObjects\Scale.cs" />
     <Compile Include="SplittedGanttChartModel.cs" />
     <Compile Include="TimeDiagramGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
