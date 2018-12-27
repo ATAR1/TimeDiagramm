@@ -4,12 +4,12 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class AuxiliaryLine : VisibleChartObject
     {
-        private AxisX _axis;
         private ChartArea _chartArea;
+        private IScale _scale;
 
-        public AuxiliaryLine(ChartArea chartArea,AxisX axis,int x)
+        public AuxiliaryLine(ChartArea chartArea,IScale scale,int x)
         {
-            _axis = axis;
+            _scale = scale;
             X = x;
             _chartArea = chartArea;
         }
@@ -21,7 +21,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public override void Draw(Graphics gr)
         {            
-            var left = _chartArea.Left+X * _axis.PixelsPerDegree;
+            var left = _chartArea.Left+X * _scale.DotsPerDivision;
             var pen = new Pen(this.Color, this.Weight) { DashPattern = this.DashPattern };
             gr.DrawLine(pen, left, _chartArea.Bottom, left, _chartArea.Top);
         }

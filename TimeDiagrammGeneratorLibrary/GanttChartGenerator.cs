@@ -11,13 +11,19 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         {
             _chart = new Chart(1000,1000,50);
             _chart.AddElement(new LeftBorder(_chart.InnerArea));
-            var axisX = new AxisX(_chart,60);
+            var scale = new Scale(60, _chart.InnerArea.Width);
+            var axisX = new AxisX(scale,_chart.InnerArea);
+            axisX.Marks = scale.DivideToEqualSegments(12).Select(mv => new AxisXMark(axisX, mv)).ToList();            
+            foreach (var mark in axisX.Marks)
+            {
+                mark.Caption.Text = mark.X + " мин.";
+            }
+            _chart.AddElements(axisX.Marks);
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
-            var axisX_Marks = axisX.SplitAxis(12);
-            var axisX_MarkCaptions = axisX_Marks.Select(m => new AxisXMarkCaption(m) { Text = m.X + " мин." });
-            _chart.AddElements(axisX_Marks);
-            _chart.AddElements(axisX_MarkCaptions);
-            _chart.AddElements(axisX_Marks.Where((e,c)=>c%2==0).Select(m => new AuxiliaryLine(_chart.InnerArea,axisX, m.X)));      
+            
+            //var axisX_MarkCaptions = axisX_Marks.Select(m => new AxisXMarkCaption(m) { Text = m.X + " мин." });
+            //_chart.AddElements(axisX_MarkCaptions);
+            _chart.AddElements(axisX.Marks.Where((e,c)=>c%2==0).Select(m => new AuxiliaryLine(_chart.InnerArea,scale, m.X)));      
             foreach (var chartString in model.ChartStrings)
             {
                 var chartString1 =chartAreaSplitted.CreateString(chartAreaSplitted.Height / model.ChartStrings.Count);                
