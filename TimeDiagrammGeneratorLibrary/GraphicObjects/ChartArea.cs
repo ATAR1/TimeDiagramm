@@ -16,11 +16,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         public virtual int Bottom => Owner.Bottom;
         public virtual int Top => Owner.Top;
         public virtual int Left => Owner.Left;
-
+        public virtual int Right => Owner.Right;
         public virtual int Height => Owner.Height;
-
         public virtual int Width => Owner.Width;
-
         public int GraphCount { get; set; }
         
     }
