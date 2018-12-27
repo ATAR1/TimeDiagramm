@@ -4,9 +4,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class Scale : IScale
     {
-        private float _width;
+        private int _width;
 
-        public Scale(int size, float width)
+        public Scale(int size, int width)
         {
             if (size <= 0) throw new ArgumentException("Размер должен быть больше ноля", nameof(size));
             Size = size;
@@ -14,6 +14,6 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         }
         public int Size { get; private set; }
 
-        public float DotsPerDivision => _width / Size;
+        public int DotsPerDivision => _width / Size;
     }
 }
