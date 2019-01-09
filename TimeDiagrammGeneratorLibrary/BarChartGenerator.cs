@@ -26,9 +26,9 @@ namespace TimeDiagrammGeneratorLibrary
                 {
                     Sections = new[]
                     {
-                        new BarSectionData() { Name = "Труб", SectionNum = 0, Value = en.Where(i => i.Level == 0).Count() },
-                        new BarSectionData() { Name = "Образцов", SectionNum = 1, Value = en.Where(i => i.Level == 1).Count() },
-                        new BarSectionData() { Name = "Повторов", SectionNum = 2, Value = en.Where(i => i.Level == 2).Count() }
+                        new BarSectionData() { Name = "Труб",  Value = en.Where(i => i.Level == 0).Count() },
+                        new BarSectionData() { Name = "Образцов",  Value = en.Where(i => i.Level == 1).Count() },
+                        new BarSectionData() { Name = "Повторов",  Value = en.Where(i => i.Level == 2).Count() }
                     },
                     Bottom = chartString.Bottom,
                 };

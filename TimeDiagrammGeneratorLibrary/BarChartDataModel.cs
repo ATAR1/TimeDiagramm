@@ -13,7 +13,6 @@ namespace TimeDiagrammGeneratorLibrary
 
     public class BarData
     {
-        public int BarNum { get; set; }
         public string CaptionText { get; set; }
         public string Name { get; set;  }
         public BarSectionData[] Sections {get; set;}
@@ -21,7 +20,6 @@ namespace TimeDiagrammGeneratorLibrary
 
     public class BarSectionData
     {
-        public int SectionNum { get; set; }
         public string Name { get; set; }
         public float Value { get; set; }
     }
