@@ -30,50 +30,51 @@ namespace Diagrams.WpfView
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            BarChart barChart = new BarChart(500, 500, 5);
-            var barChartData = new BarChartData()
-            {
-                Bars = new[] {
-                    new BarData()
-                    {
-                        BarNum = 0,
-                        Name = "МДТ6",
-                        Sections = new[]
-                        {
-                            new BarSectionData() { Name = "Прошло труб", SectionNum = 0, Value = 10 },
-                            new BarSectionData() { Name = "Повторы", SectionNum = 1, Value = 20 },
-                            new BarSectionData() { Name = "Образцы", SectionNum = 2, Value = 5 },
-                        },
-                        CaptionText = "10/35"
-                    },
-                    new BarData()
-                    {
-                        BarNum = 1,
-                        Name = "Сканер",
-                        Sections = new[]
-                        {
-                            new BarSectionData() { Name = "Прошло труб", SectionNum = 0, Value = 10 },
-                            new BarSectionData() { Name = "Повторы", SectionNum = 1, Value = 3 },
-                            new BarSectionData() { Name = "Образцы", SectionNum = 2, Value = 8 },
-                        },
-                        CaptionText = "10/22"
-                    },
-                }
-            };
+            const int grapfsCount = 2;
+            const int sectionsCount = 3;
+            var sectionNames = new string[sectionsCount] { "Прошло труб" , "Повторы", "Образцы"};
+            var graphNames = new string[grapfsCount] { "МДТ6", "Сканер" };
+            var values = new int[grapfsCount][] { new int[sectionsCount] { 10,20,5 }, new int[sectionsCount] { 10,3,8 } };
 
+            var bars = new BarData[grapfsCount];
+            for (int i = 0; i < grapfsCount; i++)
+            {
+                bars[i] = new BarData() { Name = graphNames[i], CaptionText = $"{values[i][0]}/{values[i].Sum()}" };
+                var sectionsList = new BarSectionData[sectionsCount]; 
+                for (int j = 0; j < sectionsCount; j++)
+                {
+                    sectionsList[j] =  new BarSectionData() { Name = sectionNames[j],  Value = values[i][j] };
+                }
+                bars[i].Sections = sectionsList;
+                
+            }
+
+            var barChartData = new BarChartData(){ Bars =bars };
+
+            BarChart barChart = new BarChart(500, 500, 5);
             barChart.SetData(barChartData);
+            barChart.SetActualHeight();
+            barChart.SetActualWidth();
+            image1.Source = Helper.SaveBitmapAsImage(barChart.Draw());
+            
+        }
+    }
+
+    public static class Helper
+    {
+        public static BitmapImage SaveBitmapAsImage(System.Drawing.Bitmap bitmapSource)
+        {
             using (MemoryStream ms = new MemoryStream())
             {
-                barChart.Draw().Save(ms,ImageFormat.Bmp);
+                bitmapSource.Save(ms, ImageFormat.Bmp);
                 var bitmapImage = new BitmapImage();
                 ms.Seek(0, SeekOrigin.Begin);
                 bitmapImage.BeginInit();
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.StreamSource = ms;
                 bitmapImage.EndInit();
-                image1.Source = bitmapImage;
+                return bitmapImage;
             }
-            
         }
     }
 }
