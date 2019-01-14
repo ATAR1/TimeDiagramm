@@ -20,9 +20,6 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             }
             _chart.AddElements(axisX.Marks);
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
-            
-            //var axisX_MarkCaptions = axisX_Marks.Select(m => new AxisXMarkCaption(m) { Text = m.X + " мин." });
-            //_chart.AddElements(axisX_MarkCaptions);
             _chart.AddElements(axisX.Marks.Where((e,c)=>c%2==0).Select(m => new AuxiliaryLine(_chart.InnerArea,scale, m.X)));      
             foreach (var chartString in model.ChartStrings)
             {

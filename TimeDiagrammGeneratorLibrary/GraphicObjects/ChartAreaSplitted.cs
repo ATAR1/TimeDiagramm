@@ -23,7 +23,7 @@
             }
             public int Num { get; private set; }
 
-            public override int Height { get; }
+            public override int Height { get; set; }
 
             public override int Top => Bottom - Height;
 

@@ -5,14 +5,13 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class Chart : ChartArea
     {
-        private int _height;
-        private int _width;
+        
         private ChartArea _innerArea;
 
-        public Chart(int height, int width, int margin):base(null) 
+        public Chart(int height, int width, int margin):base(Empty) 
         {
-            _height = height;
-            _width = width;
+            Height = height;
+            Width = width;
             Margin = margin;
             _innerArea = new ChartInnerArea(this);
         }
@@ -50,13 +49,13 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         }        
 
         public int Margin { get; private set; }
-        public override int Left => 0;
-        public override int Bottom => _height;
+        public override int Left { get; set; } = 0;
+        public override int Bottom => Height;
 
         public override int Top => 0;
-        public override int Height => _height;
+        public override int Height { get; set; }
 
-        public override int Width => _width;
+        public override int Width { get; set; }
 
         public ChartArea InnerArea => _innerArea;
 

@@ -12,18 +12,16 @@ namespace TimeDiagrammGeneratorLibrary
         {
             AddElement(new BottomBorder(InnerArea));
             AddElement(new LeftBorder(InnerArea));
-            _top = InnerArea.Bottom;
             Scale = new Scale(100, Width);
             
         }
 
-        int _top;
 
 
         public IEnumerable<Bar> Bars { get; private set; } = new List<Bar>();
 
         public IScale Scale { get; set; }
-
+        
         private void RemoveAllBars()
         {
             foreach (var bar in Bars)
@@ -35,31 +33,35 @@ namespace TimeDiagrammGeneratorLibrary
 
         public Bitmap Draw()
         {
-            var bitmap = new Bitmap(Height, Width);
+            var bitmap = new Bitmap(Width, Height);
             
             Graphics gr = Graphics.FromImage(bitmap);
             Draw(gr);
             return bitmap;
         }
 
+        public void SetActualHeight()
+        {
+            Height = Bars.Sum(b=>b.Height);
+        }
+
+        public void SetActualWidth()
+        {
+            Width = Bars.Max(b => b.Right);
+        }
         public void SetData(BarChartData barChartData)
         {
             RemoveAllBars();
+            Bar previousBar = null;         
             foreach (var barData in barChartData.Bars)
             {
-                AddBar(barData);
+                var bar = new BarWithCaption(InnerArea, Scale,previousBar) { GraphNum = Bars.Count(), Sections = barData.Sections, BarHeight = 40 };
+                AddElement(bar);
+                ((List<Bar>)Bars).Add(bar);
+                bar.Caption.Text = barData.CaptionText;
+                bar.Caption.Font = new Font(FontFamily.GenericSansSerif, 20);
+                previousBar = bar;
             }
-        }
-
-        private void AddBar(BarData barData)
-        {
-            var bar = new Bar(InnerArea, new GraphParameters(Bars.Count()) { BarHeight = 40 }, Scale) {  Sections = barData.Sections, Bottom = _top };
-            AddElement(bar);
-            ((List<Bar>)Bars).Add(bar);
-            var barCaption = new BarCaption(InnerArea, bar, barData.CaptionText);
-            barCaption.Font = new Font(FontFamily.GenericSansSerif, 20);
-            AddElement(barCaption);
-            _top -= (bar.Height + barCaption.Height);//todo
         }
     }
 }

@@ -1,48 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class Bar : VisibleChartObject
     {
-        private int _diagramNum;
 
-        private GraphParameters _parameters;
 
-        public Bar(ChartArea owner, GraphParameters parameters, IScale scale)
+        public Bar(ChartArea owner, IScale scale, Bar previousBar)
         {
             Owner = owner;
-            _diagramNum = parameters.GraphNum;
-            _parameters = parameters;
             Scale = scale;
+            _previousBar = previousBar;
         }
-
 
         public IScale Scale { get; set; }
 
-        public int Bottom { get; set; }
+        public int Bottom => _previousBar == null ? Owner.Bottom : _previousBar.Top;
 
-        public int Top => Bottom - Height;
+        Bar _previousBar;
 
-        public int Right => (int)Math.Ceiling(Sections.Sum(s=>s.Value)*Scale.DotsPerDivision+Owner.Left);        
+        public virtual int Top => Bottom - Height;
 
-        Brush[] Brushes => new Brush[]//
+        public int BarHeight { get; set; } = 10;
+
+        public int Left => Owner.Left;
+
+        public virtual int Right => Left + (int)Sections.Sum(s => s.Value) * Scale.DotsPerDivision;
+
+        public int Margin { get; set; } = 5;
+        /// <summary>
+        /// Номер диаграммы
+        /// </summary>
+        public int GraphNum { get; set; }
+
+        private Color Color => _colors[GraphNum];
+
+        Brush[] Brushes => new Brush[]
                                 {
-                                    new SolidBrush(_colors[_diagramNum]),
-                                    new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, _colors[_diagramNum]),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.White, _colors[_diagramNum]),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Red, _colors[_diagramNum]),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Blue, _colors[_diagramNum]),
+                                    new SolidBrush(Color),
+                                    new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, Color),
+                                    new HatchBrush(HatchStyle.DiagonalCross, Color.White, Color),
+                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Red, Color),
+                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Blue, Color),
                                 };
 
-        public int Height => _parameters.BarHeight + _parameters.BarMargin * 2;
+        public virtual int Height => BarHeight + Margin * 2 ;
 
         public BarSectionData[] Sections { get; set; }
+        
 
         Color[] _colors = new[]
         {
@@ -55,16 +62,16 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public override void Draw(Graphics gr)
         {
-            var left = (float)Owner.Left;
-            float barHeight = _parameters.BarHeight;
-            float barTop = Bottom - _parameters.BarHeight - _parameters.BarMargin;
+            float sectionLeft = Left;
+            float barTop = Bottom - BarHeight - Margin;
             for (int i = 0; i < Sections.Length; i++)
             {
-                var barWidth = Sections[i].Value * Scale.DotsPerDivision;                
-                gr.FillRectangle(Brushes[i], left, barTop, barWidth, barHeight);
-                gr.DrawRectangle(new Pen(Color.Black), left, barTop, barWidth, barHeight);
-                left += barWidth;
+                var sectionLength = Sections[i].Value * Scale.DotsPerDivision;                
+                gr.FillRectangle(Brushes[i], sectionLeft, barTop, sectionLength, BarHeight);
+                gr.DrawRectangle(new Pen(Color.Black), sectionLeft, barTop, sectionLength, BarHeight);
+                sectionLeft += sectionLength;
             }
         }
     }
+     
 }
