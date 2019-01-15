@@ -51,6 +51,7 @@
     <Compile Include="GraphicObjects\AxisXMark.cs" />
     <Compile Include="GraphicObjects\AxisXMarkCaption.cs" />
     <Compile Include="GraphicObjects\Bar.cs" />
+    <Compile Include="GraphicObjects\BarSection.cs" />
     <Compile Include="GraphicObjects\BarWithCaption.cs" />
     <Compile Include="GraphicObjects\Caption.cs" />
     <Compile Include="GraphicObjects\CaptionY.cs" />

@@ -51,8 +51,7 @@ namespace Diagrams.WpfView
 
             var barChartData = new BarChartData(){ Bars =bars };
 
-            BarChart barChart = new BarChart(500, 500, 5);
-            barChart.SetData(barChartData);
+            BarChart barChart = new BarChart(500, 500, 5,barChartData);
             barChart.SetActualHeight();
             barChart.SetActualWidth();
             image1.Source = Helper.SaveBitmapAsImage(barChart.Draw());

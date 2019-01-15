@@ -6,13 +6,27 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class Bar : VisibleChartObject
     {
+        BarSection[] _sections;
 
-
-        public Bar(ChartArea owner, IScale scale, Bar previousBar)
+        public Bar(ChartArea owner, IScale scale, Bar previousBar, BarSectionData[] model)
         {
             Owner = owner;
             Scale = scale;
             _previousBar = previousBar;
+            GenerateSections(model);
+        }
+
+        private void GenerateSections(BarSectionData[] model)
+        {
+            _sections = new BarSection[model.Count()];
+            BarSection previous = null;
+            int i = 0;
+            foreach (var item in model)
+            {
+                var section = new BarSection(this, item, previous);
+                previous = section;
+                _sections[i++] = section;
+            }
         }
 
         public IScale Scale { get; set; }
@@ -27,51 +41,26 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public int Left => Owner.Left;
 
-        public virtual int Right => Left + (int)Sections.Sum(s => s.Value) * Scale.DotsPerDivision;
+        public virtual int Right => Left + Length;
+
+        public virtual int Length => _sections.Sum(s => s.Length) + Margin;
 
         public int Margin { get; set; } = 5;
         /// <summary>
         /// Номер диаграммы
         /// </summary>
-        public int GraphNum { get; set; }
+        public int GraphNum => _previousBar == null ? 0 : _previousBar.GraphNum+1;
 
-        private Color Color => _colors[GraphNum];
-
-        Brush[] Brushes => new Brush[]
-                                {
-                                    new SolidBrush(Color),
-                                    new HatchBrush(HatchStyle.ForwardDiagonal, Color.Black, Color),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.White, Color),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Red, Color),
-                                    new HatchBrush(HatchStyle.DiagonalCross, Color.Blue, Color),
-                                };
-
-        public virtual int Height => BarHeight + Margin * 2 ;
-
-        public BarSectionData[] Sections { get; set; }
-        
-
-        Color[] _colors = new[]
-        {
-            Color.Green,
-            Color.Blue,
-            Color.LightGreen,
-            Color.LightBlue
-        };
-        
+        public virtual int Height => BarHeight + Margin * 2 ;               
 
         public override void Draw(Graphics gr)
         {
-            float sectionLeft = Left;
-            float barTop = Bottom - BarHeight - Margin;
-            for (int i = 0; i < Sections.Length; i++)
+            foreach (var section in _sections)
             {
-                var sectionLength = Sections[i].Value * Scale.DotsPerDivision;                
-                gr.FillRectangle(Brushes[i], sectionLeft, barTop, sectionLength, BarHeight);
-                gr.DrawRectangle(new Pen(Color.Black), sectionLeft, barTop, sectionLength, BarHeight);
-                sectionLeft += sectionLength;
-            }
+                section.Draw(gr);
+            }            
         }
+        
     }
      
 }

@@ -15,7 +15,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects.Tests
         public void BarBottomMustBeTopOfPreviousBar()
         {
             Bar bar = new BarMock();
-            Bar bar2 = new Bar(new EmptyArea(), new Scale(10, 100), bar);
+            Bar bar2 = new Bar(new EmptyArea(), new Scale(10, 100), bar,new BarSectionData[0]);
             Assert.IsTrue(bar.Top == bar2.Bottom);
             Assert.AreEqual(134, bar2.Bottom);
         }        
@@ -23,7 +23,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects.Tests
 
     public class BarMock : Bar
     {
-        public BarMock() : base(null, null, null)
+        public BarMock() : base(null, null, null, new BarSectionData[0])
         {
         }
 
