@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 
@@ -6,28 +7,24 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class Bar : VisibleChartObject
     {
-        BarSection[] _sections;
 
-        public Bar(ChartArea owner, IScale scale, Bar previousBar, BarSectionData[] model)
+        public Bar(ChartArea owner, IScale scale, Bar previousBar)
         {
             Owner = owner;
             Scale = scale;
             _previousBar = previousBar;
-            GenerateSections(model);
+            Sections = new SectionsStack();
         }
 
-        private void GenerateSections(BarSectionData[] model)
+        public BarSection AddSection(string name)
         {
-            _sections = new BarSection[model.Count()];
-            BarSection previous = null;
-            int i = 0;
-            foreach (var item in model)
-            {
-                var section = new BarSection(this, item, previous);
-                previous = section;
-                _sections[i++] = section;
-            }
+            return Sections.Add(name,this);            
         }
+
+        public SectionsStack Sections { get; }
+
+
+        
 
         public IScale Scale { get; set; }
 
@@ -43,19 +40,23 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public virtual int Right => Left + Length;
 
-        public virtual int Length => _sections.Sum(s => s.Length) + Margin;
+        public virtual int Length => Sections.ToArray().Sum(s => s.Length) + Margin;
 
         public int Margin { get; set; } = 5;
+        
+
         /// <summary>
         /// Номер диаграммы
         /// </summary>
         public int GraphNum => _previousBar == null ? 0 : _previousBar.GraphNum+1;
 
-        public virtual int Height => BarHeight + Margin * 2 ;               
+        public virtual int Height => BarHeight + Margin * 2 ;
+
+        public int ColorNum { get; set; }
 
         public override void Draw(Graphics gr)
         {
-            foreach (var section in _sections)
+            foreach (var section in Sections.ToArray())
             {
                 section.Draw(gr);
             }            

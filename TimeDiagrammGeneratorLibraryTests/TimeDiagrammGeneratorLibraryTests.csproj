@@ -52,6 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BarChartTests.cs" />
+    <Compile Include="GraphicObjects\BarStackTests.cs" />
     <Compile Include="GraphicObjects\BarTests.cs" />
     <Compile Include="GraphicObjects\ScaleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

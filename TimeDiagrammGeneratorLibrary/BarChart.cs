@@ -8,50 +8,81 @@ namespace TimeDiagrammGeneratorLibrary
 {
     public class BarChart : Chart
     {
-        public BarChart(int height, int width, int margin, BarChartData barChartData) : base(height, width, margin)
+        public BarChart(IScale scale) 
         {
             AddElement(new BottomBorder(InnerArea));
             AddElement(new LeftBorder(InnerArea));
-            Scale = new Scale(100, Width);
-            SetData(barChartData);
+            Scale = scale;
+            _bars = new BarStack();
+            _categories = new List<string>();
         }
 
 
+        public BarStack Bars => _bars;
 
-        private List<Bar> _bars = new List<Bar>();
+        private BarStack _bars;
+
+        private List<string> _categories;
 
         public IScale Scale { get; set; }
         
         public Bitmap Draw()
         {
-            var bitmap = new Bitmap(Width, Height);
-            
+            var bitmap = new Bitmap(Width, Height);            
             Graphics gr = Graphics.FromImage(bitmap);
+            AddElements(_bars.ToArray());
             Draw(gr);
             return bitmap;
         }
 
+        public void AddBar(string chartName)
+        {
+            _bars.AddBar(chartName, InnerArea, Scale,_categories);
+        }
+
+
+        public IEnumerable<string> Categories => _categories;
+
+
+        public void AddCategory(string name)
+        {
+            foreach (Bar bar in _bars.ToArray())
+            {
+                bar.AddSection(name);
+            }
+            _categories.Add(name);
+        }
+
+        
+
         public void SetActualHeight()
         {
-            Height = _bars.Sum(b=>b.Height);
+            Height = _bars.ToArray().Sum(b=>b.Height)+Margin*2;
         }
 
         public void SetActualWidth()
         {
-            Width = _bars.Max(b => b.Right)+Margin;
+            Width = _bars.ToArray().Max(b => b.Right)+Margin;
         }
-        private void SetData(BarChartData barChartData)
+
+        public void SetData(string[] graphNames, string[] sectionNames,  int[][] values)
         {
-            Bar previousBar = null;         
-            foreach (var barData in barChartData.Bars)
+            foreach (var graphName in graphNames)
             {
-                var bar = new BarWithCaption(InnerArea, Scale,previousBar, barData.Sections) { BarHeight = 40 };
-                AddElement(bar);
-                ((List<Bar>)_bars).Add(bar);
-                bar.Caption.Text = barData.CaptionText;
-                bar.Caption.Font = new Font(FontFamily.GenericSansSerif, 20);
-                previousBar = bar;
+                AddBar(graphName);
             }
+            foreach (var sectionName in sectionNames)
+            {
+                AddCategory(sectionName);
+            }
+            for (int i = 0; i < values.Length; i++)
+            {
+                for (int j = 0; j < values[i].Length; j++)
+                {
+                    Bars.ToArray()[i].Sections.ToArray()[j].Value = values[i][j];
+                }
+            }
+            
         }
     }
 }

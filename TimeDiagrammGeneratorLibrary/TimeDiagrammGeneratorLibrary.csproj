@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarChart.cs" />
-    <Compile Include="BarChartDataModel.cs" />
     <Compile Include="BarChartGenerator.cs" />
     <Compile Include="GraphicObjects\AuxiliaryLine.cs" />
     <Compile Include="GraphicObjects\AxisX.cs" />
@@ -52,6 +51,7 @@
     <Compile Include="GraphicObjects\AxisXMarkCaption.cs" />
     <Compile Include="GraphicObjects\Bar.cs" />
     <Compile Include="GraphicObjects\BarSection.cs" />
+    <Compile Include="GraphicObjects\BarStack.cs" />
     <Compile Include="GraphicObjects\BarWithCaption.cs" />
     <Compile Include="GraphicObjects\Caption.cs" />
     <Compile Include="GraphicObjects\CaptionY.cs" />
@@ -60,6 +60,7 @@
     <Compile Include="GraphicObjects\ChartAreaSplitted.cs" />
     <Compile Include="GraphicObjects\ChartObject.cs" />
     <Compile Include="GraphicObjects\Brick.cs" />
+    <Compile Include="GraphicObjects\SectionsStack.cs" />
     <Compile Include="GraphicObjects\TimeChartArea.cs" />
     <Compile Include="GraphicObjects\HistogramPoint.cs" />
     <Compile Include="GraphicObjects\IntervalG.cs" />

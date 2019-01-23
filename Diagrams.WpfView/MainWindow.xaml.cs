@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimeDiagrammGeneratorLibrary;
+using TimeDiagrammGeneratorLibrary.GraphicObjects;
 
 namespace Diagrams.WpfView
 {
@@ -34,24 +35,14 @@ namespace Diagrams.WpfView
             const int sectionsCount = 3;
             var sectionNames = new string[sectionsCount] { "Прошло труб" , "Повторы", "Образцы"};
             var graphNames = new string[grapfsCount] { "МДТ6", "Сканер" };
-            var values = new int[grapfsCount][] { new int[sectionsCount] { 10,20,5 }, new int[sectionsCount] { 10,3,8 } };
+            var values = new int[grapfsCount][] { new int[sectionsCount] { 20,5,2 }, new int[sectionsCount] { 10,3,8 } };
 
-            var bars = new BarData[grapfsCount];
-            for (int i = 0; i < grapfsCount; i++)
+            BarChart barChart = new BarChart(new Scale(100,1000)) { Width = 1000,Height=1000, Margin=20 };
+            barChart.SetData(graphNames, sectionNames, values);
+            foreach (var bar in barChart.Bars.ToArray())
             {
-                bars[i] = new BarData() { Name = graphNames[i], CaptionText = $"{values[i][0]}/{values[i].Sum()}" };
-                var sectionsList = new BarSectionData[sectionsCount]; 
-                for (int j = 0; j < sectionsCount; j++)
-                {
-                    sectionsList[j] =  new BarSectionData() { Name = sectionNames[j],  Value = values[i][j] };
-                }
-                bars[i].Sections = sectionsList;
-                
-            }
-
-            var barChartData = new BarChartData(){ Bars =bars };
-
-            BarChart barChart = new BarChart(500, 500, 5,barChartData);
+                bar.Caption.Text = bar.Sections.ToArray()[0].Value + "/"+ bar.Sections.ToArray().Sum(s=>s.Value).ToString();
+            }            
             barChart.SetActualHeight();
             barChart.SetActualWidth();
             image1.Source = Helper.SaveBitmapAsImage(barChart.Draw());

@@ -4,7 +4,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 {
     public class BarWithCaption : Bar
     {
-        public BarWithCaption(ChartArea owner, IScale scale, Bar previousBar, BarSectionData[] model) : base(owner, scale, previousBar, model)
+        public BarWithCaption(ChartArea owner, IScale scale, Bar previousBar) : base(owner, scale, previousBar)
         {
             Caption = new Caption();
         }

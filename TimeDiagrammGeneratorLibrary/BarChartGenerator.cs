@@ -11,7 +11,7 @@ namespace TimeDiagrammGeneratorLibrary
 
         public BarChartGenerator(SplittedGanttChartModel model)
         {
-            _chart = new Chart(1000, 300, 50);
+            _chart = new Chart() { Height = 1000, Width = 300, Margin = 50 };
             _chart.AddElement(new BottomBorder(_chart.InnerArea));
             _chart.AddElement(new LeftBorder(_chart.InnerArea));
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
@@ -22,17 +22,17 @@ namespace TimeDiagrammGeneratorLibrary
                 var captionY = new CaptionY(chartString) { Caption = chartStringModel.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
                 var en = model.Graphs.First().Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
-                var Model = new[]
-                    {
-                        new BarSectionData() { Name = "Труб",  Value = en.Where(i => i.Level == 0).Count() },
-                        new BarSectionData() { Name = "Образцов",  Value = en.Where(i => i.Level == 1).Count() },
-                        new BarSectionData() { Name = "Повторов",  Value = en.Where(i => i.Level == 2).Count() }
-                    };
-                var bar = new BarWithCaption(chartString, new Scale(70, chartString.Width), null, Model);
-                var barCaption = new Caption();
-                barCaption.Text = Model[0].Value.ToString() + '/' + Model.Sum(s => s.Value).ToString();
+                var bar = new BarWithCaption(chartString, new Scale(70, chartString.Width), null);
+                bar.AddSection("Труб").Value = en.Where(i => i.Level == 0).Count();
+                bar.AddSection("Образцов").Value = en.Where(i => i.Level == 1).Count();
+                bar.AddSection("Повторов").Value = en.Where(i => i.Level == 2).Count();
+                bar.Caption.Text = bar.Sections.ToArray()[0].Value.ToString() + '/' + bar.Sections.ToArray().Sum(s => s.Value).ToString();
+                bar = new BarWithCaption(chartString, new Scale(70, chartString.Width), bar);
+                bar.AddSection("Труб").Value = en.Where(i => i.Level == 0).Count();
+                bar.AddSection("Образцов").Value = en.Where(i => i.Level == 1).Count();
+                bar.AddSection("Повторов").Value = en.Where(i => i.Level == 2).Count();
+                bar.Caption.Text = bar.Sections.ToArray()[0].Value.ToString() + '/' + bar.Sections.ToArray().Sum(s => s.Value).ToString();
                 _chart.AddElement(bar);
-                _chart.AddElement(barCaption);
             }
 
         }        
