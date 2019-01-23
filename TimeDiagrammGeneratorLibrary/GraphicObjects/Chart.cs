@@ -8,11 +8,8 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
         
         private ChartArea _innerArea;
 
-        public Chart(int height, int width, int margin):base(Empty) 
-        {
-            Height = height;
-            Width = width;
-            Margin = margin;
+        public Chart():base(Empty) 
+        {            
             _innerArea = new ChartInnerArea(this);
         }
 
@@ -46,9 +43,9 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
             {
                 item.Draw(gr);
             }
-        }        
+        }
 
-        public int Margin { get; private set; }
+        public int Margin { get; set; } = 0;
         public override int Left { get; set; } = 0;
         public override int Bottom => Height;
 

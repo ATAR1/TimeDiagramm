@@ -9,7 +9,7 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
 
         public GanttChartGenerator(SplittedGanttChartModel model)
         {
-            _chart = new Chart(1000,1000,50);
+            _chart = new Chart() { Height = 1000, Width = 1000, Margin = 50 };
             _chart.AddElement(new LeftBorder(_chart.InnerArea));
             var scale = new Scale(60, _chart.InnerArea.Width);
             var axisX = new AxisX(scale,_chart.InnerArea);

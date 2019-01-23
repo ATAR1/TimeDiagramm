@@ -14,7 +14,7 @@ namespace TimeDiagrammGeneratorLibrary
 
         public HistogramGenerator(SplittedGanttChartModel model)
         {
-            _chart = new Chart(1000, 300, 50);
+            _chart = new Chart() { Height = 1000, Width = 300, Margin = 50 };
             _chart.AddElement(new BottomBorder(_chart.InnerArea));
             _chart.AddElement(new LeftBorder(_chart.InnerArea));
             var chartAreaSplitted = new ChartAreaSplitted(_chart.InnerArea);
