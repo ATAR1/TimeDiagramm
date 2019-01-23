@@ -22,12 +22,15 @@ namespace TimeDiagrammGeneratorLibrary
                 var captionY = new CaptionY(chartString) { Caption = chartStringModel.StartChartTime.Hour + " час." };
                 _chart.AddElement(captionY);
                 var en = model.Graphs.First().Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
-                var bar = new BarWithCaption(chartString, new Scale(70, chartString.Width), null);
+                var scale = new Scale(70, chartString.Width);
+                var bar = new BarWithCaption(chartString, scale, null);
                 bar.AddSection("Труб").Value = en.Where(i => i.Level == 0).Count();
                 bar.AddSection("Образцов").Value = en.Where(i => i.Level == 1).Count();
                 bar.AddSection("Повторов").Value = en.Where(i => i.Level == 2).Count();
                 bar.Caption.Text = bar.Sections.ToArray()[0].Value.ToString() + '/' + bar.Sections.ToArray().Sum(s => s.Value).ToString();
-                bar = new BarWithCaption(chartString, new Scale(70, chartString.Width), bar);
+                _chart.AddElement(bar);
+                en = model.Graphs.ToArray()[1].Intervals.Where(i => (i.StartTime >= chartStringModel.StartChartTime) && (i.StartTime <= chartStringModel.EndChartTime));
+                bar = new BarWithCaption(chartString, scale, bar) { ColorNum = 1};
                 bar.AddSection("Труб").Value = en.Where(i => i.Level == 0).Count();
                 bar.AddSection("Образцов").Value = en.Where(i => i.Level == 1).Count();
                 bar.AddSection("Повторов").Value = en.Where(i => i.Level == 2).Count();
