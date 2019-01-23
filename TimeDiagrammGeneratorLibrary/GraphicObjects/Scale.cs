@@ -7,12 +7,12 @@ namespace TimeDiagrammGeneratorLibrary.GraphicObjects
     {
         private int _width;
 
-        public Scale(int size, int width)
+        public Scale(int maxValue, int width)
         {
-            if (size <= 0) throw new ArgumentException("Размер должен быть больше ноля", nameof(size));
-            Size = size;
+            if (maxValue <= 0) throw new ArgumentException("Размер должен быть больше ноля", nameof(maxValue));
+            Size = maxValue;
             _width = width;
-            MaxValue = size;
+            MaxValue = maxValue;
             MinValue = 0;
         }
         public int Size { get; private set; }
