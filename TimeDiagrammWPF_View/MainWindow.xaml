@@ -27,8 +27,7 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
-            <MenuItem Header="Скопировать в буфер" Command="{Binding CopyToClipBoardCommand}"/>
-
+            <MenuItem Header="Сохранить диаграму в файл" Command="{Binding SaveToFileCommand}"/>
 
         </Menu>
         <Grid Grid.Row="1">
@@ -42,10 +41,10 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <DatePicker Grid.Column="0" MinWidth="100"  SelectedDate="{Binding GenerateDiagrammCommand.DateBegin}"/>
-            <xctk:TimePicker Grid.Column="1" MinWidth="100" Value="{Binding GenerateDiagrammCommand.DateBegin}"/>
-            <DatePicker Grid.Column="2" MinWidth="100"  SelectedDate="{Binding GenerateDiagrammCommand.DateEnd}"/>
-            <xctk:TimePicker Grid.Column="3" MinWidth="100"  Value="{Binding GenerateDiagrammCommand.DateEnd}"/>
+            <DatePicker Grid.Column="0" MinWidth="100"  SelectedDate="{Binding BeginTime, Mode=TwoWay}"/>
+            <xctk:TimePicker Grid.Column="1" MinWidth="100" Value="{Binding BeginTime, Mode=TwoWay}"/>
+            <DatePicker Grid.Column="2" MinWidth="100"  SelectedDate="{Binding EndTime, Mode=TwoWay}"/>
+            <xctk:TimePicker Grid.Column="3" MinWidth="100"  Value="{Binding EndTime, Mode=TwoWay}"/>
             <RadioButton VerticalAlignment="Center"  Grid.Column="4" Content="ТО 1" IsChecked="{Binding GenerateDiagrammCommand.TO1Diagramm}"/>
             <RadioButton VerticalAlignment="Center"  Grid.Column="5" Content="ТО 2" IsChecked="{Binding GenerateDiagrammCommand.TO2Diagramm}"/>
             <Button Content="Диаграмма" Grid.Column="6" Command="{Binding GenerateDiagrammCommand}"/>

@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JournalDbModel", "JournalDb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalDatasources", "IntervalDatasources\IntervalDatasources.csproj", "{9E28A9E5-8A82-4A19-912D-8ADE42DAD826}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scaner.DataDirectoryReaderLibrary", "..\ScanerDirectoryReader\Scaner.DataDirectoryReaderLibrary\Scaner.DataDirectoryReaderLibrary.csproj", "{A1602D0A-021C-4F5D-AB69-F82420AE1B08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scaner.CommonTypes", "..\ScanerDirectoryReader\Scaner.CommonTypes\Scaner.CommonTypes.csproj", "{CA4C57B8-1AC9-4729-888A-7AEBCB840583}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{9E28A9E5-8A82-4A19-912D-8ADE42DAD826}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E28A9E5-8A82-4A19-912D-8ADE42DAD826}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E28A9E5-8A82-4A19-912D-8ADE42DAD826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1602D0A-021C-4F5D-AB69-F82420AE1B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1602D0A-021C-4F5D-AB69-F82420AE1B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1602D0A-021C-4F5D-AB69-F82420AE1B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1602D0A-021C-4F5D-AB69-F82420AE1B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4C57B8-1AC9-4729-888A-7AEBCB840583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4C57B8-1AC9-4729-888A-7AEBCB840583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4C57B8-1AC9-4729-888A-7AEBCB840583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4C57B8-1AC9-4729-888A-7AEBCB840583}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

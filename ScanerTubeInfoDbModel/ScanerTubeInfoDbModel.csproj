@@ -68,8 +68,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDirrectorySeeker.cs" />
     <Compile Include="IFileSeeker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScanerDirrectorySource.cs" />
     <Compile Include="ScanerIntervalsSource.cs" />
     <Compile Include="ScanerRepository.cs" />
     <Compile Include="ScanerTubeInfo.cs">
@@ -119,6 +121,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ScanerDirectoryReader\Scaner.CommonTypes\Scaner.CommonTypes.csproj">
+      <Project>{CA4C57B8-1AC9-4729-888A-7AEBCB840583}</Project>
+      <Name>Scaner.CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ScanerDirectoryReader\Scaner.DataDirectoryReaderLibrary\Scaner.DataDirectoryReaderLibrary.csproj">
+      <Project>{A1602D0A-021C-4F5D-AB69-F82420AE1B08}</Project>
+      <Name>Scaner.DataDirectoryReaderLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IntervalsDBTypesLibrary\IntervalsDBTypesLibrary.csproj">
       <Project>{e3032533-d779-4c70-a0f9-3be535666557}</Project>
       <Name>IntervalsDBTypesLibrary</Name>

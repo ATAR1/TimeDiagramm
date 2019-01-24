@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace TimeDiagrammWPF_View
 {
-    internal class VM:INotifyPropertyChanged,IDateTimeInterval
+    internal class VM : INotifyPropertyChanged, IDateTimeInterval
     {
         private Stream diagramm1;
         private Stream diagramm2;
@@ -22,18 +22,20 @@ namespace TimeDiagrammWPF_View
         public VM()
         {
             GenerateDiagrammCommand = new GenerateDiagrammCommand(this);
-            CopyToClipBoardCommand = new CopyToClipBoardCommand(this);
+            SaveToFileCommand = new SaveToFileCommand(this);
+            //todo CopyToClipBoardCommand = new CopyToClipBoardCommand(this);
             _menuItems = new List<ICommand>
             {
                 new ClearLocalBDCommand(),
                 new LoadDataCommand("Загрузить данные МДТ 6", new MDT6IntervalsSource("МДТ 6"), this),
                 new LoadDataCommand("Загрузить данные МДТ 6.1", new MDT6IntervalsSource("МДТ 6.1"), this),
-                new LoadDataCommand("Загрузить данные сканера ТО1", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО1"), this),
-
+                //new LoadDataCommand("Загрузить данные сканера ТО1", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО1"), this),
+                new LoadDataCommand("Загрузить данные сканера ТО1 из папки", new ScanerDirrectorySource(new DirectorySeeker(),"Сканер ТО1"), this),
                 new LoadDataCommand("Загрузить данные из журнала дежурных", new TestAndTunesUptimesRepository(), this),
                 new LoadDataCommand("Загрузить данные МДТ 6.2", new MDT6IntervalsSource("МДТ 6.2"), this),
-                new LoadDataCommand("Загрузить данные сканера ТО2 из файла", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО2"), this),
-                new LoadDataCommand("Загрузить данные сканера ТО2 из службы", new ScanerWcfClientDatasource("Сканер ТО2"), this),
+                //new LoadDataCommand("Загрузить данные сканера ТО2 из файла", new ScanerIntervalsSource(new FileSeeker(), "Сканер ТО2"), this),
+                //new LoadDataCommand("Загрузить данные сканера ТО2 из службы", new ScanerWcfClientDatasource("Сканер ТО2"), this),
+                new LoadDataCommand("Загрузить данные сканера ТО2 из папки", new ScanerDirrectorySource(new DirectorySeeker(),"Сканер ТО2"), this),
             };
         }
 
@@ -41,7 +43,9 @@ namespace TimeDiagrammWPF_View
 
         public ICommand GenerateDiagrammCommand { get; private set; }
 
-        public ICommand CopyToClipBoardCommand { get; private set; }
+        //todo public ICommand CopyToClipBoardCommand { get; private set; }
+
+        public ICommand SaveToFileCommand { get; }
 
         public Bitmap Bitmap1 { get; set; }
         public Bitmap Bitmap2 { get; set; }
@@ -95,9 +99,27 @@ namespace TimeDiagrammWPF_View
             }
         }
 
-        public DateTime BeginTime { get; set; } = new DateTime(2018, 10, 1);
+        DateTime _beginTime = DateTime.Today;
+        public DateTime BeginTime
+        {
+            get { return _beginTime; }
+            set
+            {
+                _beginTime = value;
+                RaisePropertyChanged(nameof(BeginTime));
+            }
+        }
 
-        public DateTime EndTime { get; set; } = DateTime.Now;
+        DateTime _endTime = DateTime.Today;
+        public DateTime EndTime
+        {
+            get { return _endTime; }
+            set
+            {
+                _endTime = value;
+                RaisePropertyChanged(nameof(EndTime));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

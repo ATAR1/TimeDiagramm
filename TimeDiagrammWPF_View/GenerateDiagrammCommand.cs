@@ -23,9 +23,7 @@ namespace TimeDiagrammWPF_View
         {
             return true;
         }
-
-        public DateTime DateBegin { get; set; } = DateTime.Today;
-        public DateTime DateEnd { get; set; } = DateTime.Today;
+        
 
         public bool TO1Diagramm { get; set; } = true;
 
@@ -40,8 +38,8 @@ namespace TimeDiagrammWPF_View
             var list6 = ctx.Intervals.Where(i => i.Object == "Сканер ТО2").ToList();
             var list7 = ctx.Intervals.Where(i => i.Object == "УНСК.ТО2.МДТ 6.2").ToList();
             var list8 = ctx.Intervals.Where(i => i.Object == "УНСК.ТО2.Сканер").ToList();
-            var dateTimeBegin = DateBegin ;
-            var dateTimeEnd = DateEnd;
+            var dateTimeBegin = vM.BeginTime ;
+            var dateTimeEnd = vM.EndTime;
             var diagrams = new SplittedGanttChartModel(dateTimeBegin, dateTimeEnd);
             if (TO1Diagramm)
             {
