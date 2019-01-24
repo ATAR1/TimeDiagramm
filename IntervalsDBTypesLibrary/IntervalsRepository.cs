@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,17 @@ namespace IntervalsDBTypesLibrary
         {
             using (var ctx = new IntervalsDBModelContainer())
             {
-                ctx.Intervals.AddRange(intervals);
-                ctx.SaveChanges();
+                try
+                {
+
+
+                    ctx.Intervals.AddRange(intervals);
+                    ctx.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    throw ex;
+                }
             }
         }
     }
